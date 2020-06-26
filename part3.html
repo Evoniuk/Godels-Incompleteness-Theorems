@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godel's Incompleteness Theorems</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <ol>
+      <li>
+        <a href="./index.html#sec1">A History and a Result</a>
+        <ol>
+          <li><a href="./index.html#sec1-1">The Axiomatic System is Developed</a></li>
+          <li><a href="./index.html#sec1-2">The Odd One Out</a></li>
+          <li><a href="./index.html#sec1-3">An Alternative Geometry</a></li>
+          <li><a href="./index.html#sec1-4">A Bigger Problem</a></li>
+          <li>
+            <a href="./index.html#sec1-5">A New Foundation for Mathematics</a>
+            <ol>
+              <li><a href="./index.html#sec1-5-1">Arithmetic, Set Theory, and Logic</a></li>
+            </ol>
+          </li>
+          <li><a href="./index.html#sec1-6">A Crisis in the Foundation</a></li>
+          <li><a href="./index.html#sec1-7">A New Theory of Sets</a></li>
+          <li><a href="./index.html#sec1-8">The Culmination of Mathematical History</a></li>
+          <li><a href="./index.html#sec1-9">The Result</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="./part2.html#sec2">The Proof</a>
+        <ol>
+          <li>
+            <a href="./part2.html#sec2-1">Necessary Considerations</a>
+            <ol>
+              <li><a href="./part2.html#sec2-1-1">Logic</a></li>
+              <li><a href="./part2.html#sec2-1-2">Primitive Recursion</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="./part2.html#sec2-2">The Proof</a>
+            <ol>
+              <li><a href="./part2.html#sec2-2-1">Defining the System P</a></li>
+              <li><a href="./part2.html#sec2-2-2">Gödel Numbering</a></li>
+              <li><a href="./part2.html#sec2-2-3">A Primitive Recursive Series</a></li>
+              <li><a href="./part2.html#sec2-2-4">Constructing the Undecidable</a></li>
+              <li><a href="./part2.html#sec2-2-5">A Problem With Consistency</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>
+        <a href="#sec3">Closing Thoughts</a>
+        <ol>
+          <li><a href="#sec3-1">Human Reasoning</a></li>
+          <li><a href="#sec3-2">Philosophical Import</a></li>
+          <li><a href="#sec3-3">What is Mathematics?</a></li>
+        </ol>
+      </li>
+      <li><a href="./part4.html#sec4">Bibliography</a></li>
+    </ol>
+  </nav>
+
+  <header><a href="./part2.html">< The Proof</a></header>
+
+  <h2 id="sec3">3. Closing Thoughts</h2>
+
+  <p>Since Gödel’s proof there have been more “natural” statements shown to be unprovable in Peano Arithmetic. The first we just mentioned. Gentzen proved the the consistency of arithmetic using transfinite induction, and so by Gödel’s Second Incompleteness Theorem arithmetic is incapable of proving transfinite induction.</p>
+
+  <p>The second was the Strengthened Finite Ramsey Theorem (SFRT), which states the following:</p>
+
+  <blockquote>
+    For all <em>n</em>, <em>k</em>, <em>m</em> ∈ <strong>Z</strong>+ there exists an N such that if we color each of the n-element subsets of S = {1, 2, 3, ..., N} with one of k colors, then we can find a Y ⊆ S with at least m elements, such that all n-element subsets of Y have the same color, and the number of elements of Y is at least the smallest element of Y.
+  </blockquote>
+
+  <p>The fact that this is unprovable is known as the Paris-Harrington Theorem, published in 1972. The Paris-Harrington Theorem showed that the SFRT implies the consistency of arithmetic, and so by Gödel’s Second Incompleteness Theorem cannot be provable within arithmetic.</p>
+
+  <p>The third is Goodstein’s Theorem, which states that all Goodstein sequences terminate at 0. Its unprovability was also established in part by Paris. This was done by showing Goodstein’s Theorem to be equivalent to transfinite induction, already shown to be unprovable by Gentzen (albeit indirectly).</p>
+
+  <p>What all these statements have in common is that they rely on Gödel’s results to establish unprovability. It has been conjectured by Douglas Hofstadter (a cognitive scientist, not a mathematician) that all unprovable statements are unprovable due to such a connection with Gödel. Such a conjecture is undoubtedly too vague to be provable, but thus far it seems to be, at the very least, not even wrong.</p>
+
+  <h3 id="sec3-1">3.1. Human Reasoning</h3>
+
+  <p>Chesterton (certainly not a mathematician) once wrote, “Thoroughly worldly people never understand even the world”. As the world goes, so goes mathematics (or perhaps it’s the other way ’round); any engagement with a system of mathematics strictly within its formal limits necessarily restrains the understanding of that system. Gödel’s result applies not only to mathematics, but to philosophy, computer science, and the nature of reasoning itself.</p>
+
+  <p>Gödel’s result placed limits on our ability to ascertain the truth, yet at the same time demonstrated our ability to abstract and look beyond a given system. Since the Incompleteness Theorems were published people have wondered as to their relevance to human reasoning. A certain hypothesis is that it has no relevance, as the way people reason is not entirely consistent. But this is not a very satisfactory answer given that consistent reasoning is the only kind of reasoning about which anyone cares, and Gödel’s result still very much applies there.</p>
+
+  <p>What Gödel’s result hinges upon is the ability to “step outside” the system in which we would normally be working to gain a higher perspective. In his theorems, Gödel steps out of arithmetic so as to garner the ability to assume its consistency, an assumption to which we would normally not have access. Philosopher J.R. Lucas has posited that this option is always available to us, that we can always “step out” and view things from an outside perspective. He writes, “Gödel’s theorem seems to me to prove that mechanism is false, that minds cannot be explained by machines”. His reasoning is that machines always operate upon what is essentially a formal system, and if that system is capable of arithmetic (which it had better be if it wants to be useful in any capacity), then there must exist certain truths which will perpetually escape the machine’s “intelligence”. This, however, needn’t be so for human beings (or so Lucas claims). His thought is that we, humans, are always capable of performing the same sort of reasoning Gödel employed, of stepping out of the system.</p>
+
+  <p>This sort of argument is not capable of mathematical proof or disproof, as it is too ill-defined to speak of in a rigorous way, but it can certainly be questioned as to whether or not we are always capable of removing ourselves from a given system. It took a great deal of ingenuity for Gödel to do what he did, and it doesn’t take much curiosity to wonder how far our intellect may carry us before the complexity of a system is simply too overwhelming. Gödel’s proof is still only completely understood by a handful of experts, and yet Gödel’s result is for arithmetic, perhaps the most basic mathematical system possible, and certainly the most widely known. If it takes someone like Gödel to step out of a system of arithmetic, it is certainly questionable as to whether or not men are capable of stepping outside of every conceivable system.</p>
+
+  <h3 id="sec3-2">3.2. Philosophical Import</h3>
+
+  <p>Gödel’s result is easily the most consequential mathematical result to mathematical philosophy, and perhaps the only time in history a philosophical position has been thoroughly disproven.</p>
+
+  <p>We have mentioned logicism before. This position, champoined by Russell, presumed that mathematics was, for lack of a better word, perfect. The view of logicists was that only the most basic assumptions of logic were necessary for a complete understanding of mathematics. In <em>Principles of Mathematics</em> Russell writes that “The fact that all Mathematics is Symbolic Logic is one of the greatest discoveries of our age; and when this fact has been established, the remainder of the principles of mathematics consists in the analysis of Symbolic Logic itself”. Russell went through great lengths to show this. In <em>Principia Mathematica</em> he makes very few assumptions, and those that he does make are almost entirely unobjectionable. Despite the paucity of assumptions, however, he was able to show that any primitive recursive truth was capable of being shown within his system, which grants it an enormous amount of power. Nevertheless, however, Gödel showed that no amount of assumptions will ever be sufficient to capture the truths of arithmetic.</p>
+
+  <p>While Russell’s philosophy was essentially foreclosed, the relationship between Gödel’s result and Hilbert’s philosophy, formalism, is more complicated. Most of this complication results, however, from the ambiguity of certain philosophical positions, as is often the case in philosophy. If we consider formalism to be logicism but amended with extra axioms, then certainly it is false, as no amount of axioms will ever be sufficient to make arithmetic complete. If, however, formalism is made as general as possible to say simply that mathematics as a discipline is the practice of declaring assumptions and deriving conclusions, then Gödel’s result has almost no relevance. At that point it comes down to what mathematics is.</p>
+
+  <h3 id="sec3-3">3.3. What is Mathematics?</h3>
+
+  <p>If we are not satisfied with the quip that “mathematics is what mathematicians do”, then we would be in want of a more precise definition, or at least a more restrictive conception, of what mathematics is. There are two aspects to any discipline: the object of its study and the means by which that study occurs. Certainly the means by which mathematical objects are studied is through deduction, but what are mathematical objects themselves?</p>
+
+  <p>The main divide among mathematical philosophers is whether or not mathematical objects are created are discovered. Intuitionists believe that math is a result of human cognition, that objects in math are discovered only insofar as they are unearthed from their source in the mind of man. John Fraleigh and Raymond Beauregard write that “Numbers exist only in our minds. There is no physical entity that is number 1. If there were, 1 would be in a place of honor in some great museum of science, and past it would file a steady stream of mathematicians gazing at 1 in wonder and awe”. Formalists see mathematical objects as arising only from the constructs of certain sets of axioms. Logicists would see the objects of study in math as being necessary consequences of the rules of logic.</p>
+
+  <p>But what of those that see mathematical objects as discovered entities? A certain philosophy that embraces this notion is Platonism, so called as it originated with Plato. This was Gödel’s philosophy, and it holds that mathematical objects are real things, just like cars and bricks and chairs. As Gödel put it,</p>
+
+  <blockquote>
+    It seems to me that the assumption of such objects is quite as legitimate as the assumption of physical bodies and there is quite as much reason to believe in their existence. They are in the same sense necessary to obtain a satisfactory system of mathematics as physical bodies are necessary for a satisfactory theory of our sense perceptions.
+  </blockquote>
+
+  <p>The only difference between the reality of these sorts of objects with the reality of objects our senses perceive is the domain in which existence obtains and the means by which truths relating objects come about. Plato viewed mathematical objects as existing in a world “higher” than our own; roughly speaking, that there exists the world in which we live where there are objects that are perceptible but unintelligible, and there exists the world in which mathematical objects exist, the world of forms, where objects are imperceptible but intelligible. Hungarian mathematician John von Neumann, giving a speech at a computing conference, claimed that “If people do not believe that mathematics is simple, it is only because they do not realize how complicated life is.” Platonism claims this is precisely because those objects with which we interact in life are unintelligible, and in the world of forms, “the higher beings are connected to the others by analogy, not by composition,” as Gödel would say, and thus these higher beings are much more well-behaved.</p>
+
+  <p>This conception of mathematics is certainly the most natural, evidenced by that fact that it was held almost universally by mathematicians for thousands of years. Certainly for children learning arithmetic the conception of numbers is that they are real in a sense, and this conception persists for triangles, curves, sets, and all sorts of other things learned within early mathematical education.</p>
+
+  <p>The instantiation of higher forms in our world was the motivation of mathematics from its start. While formalism holds that mathematical truths follow from axioms, Platonists would say the opposite is the case; axioms are merely means to describe the realities of what mathematical objects are. Mathematician Richard Hamming sums up this view when he writes</p>
+
+  <blockquote>
+    The idea that theorems follow from the postulates does not correspond to simple observation. If the Pythagorean theorem were found to not follow from the postulates, we would again search for a way to alter the postulates until it was true. Euclid’s postulates came from the Pythagorean theorem, not the other way around.
+  </blockquote>
+
+  <p>While in a strict formalist sense primitive terms are considered undefined, in the construction and application of axiomatic systems this is plainly not the case. In geometry, the notions of a point, a line, and a plane are “undefined”, yet our conception of those things serves as the means by which we define the axioms that purport to govern them. There is a sense in which a point really is that which has no parts.</p>
+
+  <p>Consider the means by which Gödel proved his results. He took for granted facts that any system of arithmetic must have (e.g. the Fundamental Theorem of Arithmetic, the infinitude of primes), assumed the consistency of the system, and proved that the system was insufficient to capture everything the system in fact implied. This, at the very least, supports the proposition that arithmetic really is something out there with an objective reality, that we can only attempt to capture with a set of axioms. Gödel himself viewed his conception of mathematical reality as indispensable to the creation of his proof.</p>
+
+  <p>Ultimately what Gödel did raises more questions than it answers, many of which will never be answered. But if wisdom is knowing that you know nothing, we're all a little wiser thanks to Gödel.</p>
+
+  <footer><a href="./part4.html">Bibliography ></a></footer>
+</body>
+</html>

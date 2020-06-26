@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godel's Incompleteness Theorems</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <ol>
+      <li>
+        <a href="./index.html#sec1">A History and a Result</a>
+        <ol>
+          <li><a href="./index.html#sec1-1">The Axiomatic System is Developed</a></li>
+          <li><a href="./index.html#sec1-2">The Odd One Out</a></li>
+          <li><a href="./index.html#sec1-3">An Alternative Geometry</a></li>
+          <li><a href="./index.html#sec1-4">A Bigger Problem</a></li>
+          <li>
+            <a href="./index.html#sec1-5">A New Foundation for Mathematics</a>
+            <ol>
+              <li><a href="#./index.htmlsec1-5-1">Arithmetic, Set Theory, and Logic</a></li>
+            </ol>
+          </li>
+          <li><a href="./index.html#sec1-6">A Crisis in the Foundation</a></li>
+          <li><a href="./index.html#sec1-7">A New Theory of Sets</a></li>
+          <li><a href="./index.html#sec1-8">The Culmination of Mathematical History</a></li>
+          <li><a href="./index.html#sec1-9">The Result</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="#sec2">The Proof</a>
+        <ol>
+          <li>
+            <a href="#sec2-1">Necessary Considerations</a>
+            <ol>
+              <li><a href="#sec2-1-1">Logic</a></li>
+              <li><a href="#sec2-1-2">Primitive Recursion</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="#sec2-2">The Proof</a>
+            <ol>
+              <li><a href="#sec2-2-1">Defining the System P</a></li>
+              <li><a href="#sec2-2-2">Gödel Numbering</a></li>
+              <li><a href="#sec2-2-3">A Primitive Recursive Series</a></li>
+              <li><a href="#sec2-2-4">Constructing the Undecidable</a></li>
+              <li><a href="#sec2-2-5">A Problem With Consistency</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>
+        <a href="./part3.html#sec3">Closing Thoughts</a>
+        <ol>
+          <li><a href="./part3.html#sec3-1">Human Reasoning</a></li>
+          <li><a href="./part3.html#sec3-2">Philosophical Import</a></li>
+          <li><a href="./part3.html#sec3-3">What is Mathematics?</a></li>
+        </ol>
+      </li>
+      <li><a href="./part4.html#sec4">Bibliography</a></li>
+    </ol>
+  </nav>
+
+  <header><a href="./index.html">< A History and a Result</a></header>
+
+  <h2 id="sec2">2. The Proof</h2>
+
+  <p>What Gödel showed was that any system of axioms capable of describing arithmetic, such as Peano’s axioms or Principia Mathematica, will always contain a well-formed statement that cannot be decided, making the system incomplete. This means that within these systems there exists a well-formed statement <em>p</em> such that neither <em>p</em> nor <em>not p</em> can be proved from the axioms. Not only this, but he gave an example of such a statement, and showed that this fact implies that these systems are incapable of proving their own consistency, and thus any proof of their consistency must rely on systems more complex than arithmetic, whose own consistency may be in doubt.</p>
+
+  <h3 id="sec2-1">2.1. Necessary Considerations</h3>
+
+  <p>Gödel’s proof was written to a small group of specialists in a niche field of mathematics using completely novel methods of argument. It contains some difficult language. Here, before going into the details of the proof, we will go through some requisite definitions and concepts.</p>
+
+  <h4 id="sec2-1-1">2.1.1. Logic</h4>
+
+  <p>There are two types of logic necessary for our discussion, propositional logic and predicate logic. These are also known as zero-order and first-order logic, respectively. We will go through a formalization of them to familiarize ourselves with the symbols.</p>
+
+  <p>Propositional logic deals with statements, or propositions, and their combinations in arguments. Its utility is in the generalization of the forms of valid arguments. The relevant ideas and the symbols for them are as follows:</p>
+
+  <table>
+    <tr><td>And</td>      <td>∧</td></tr>
+    <tr><td>Or</td>       <td>∨</td></tr>
+    <tr><td>Not</td>      <td>¬</td></tr>
+    <tr><td>Implies</td>  <td>⇒</td></tr>
+    <tr><td>Ordering</td> <td>“(” and “)”</td></tr>
+  </table>
+
+  <p>Some of these, however, are redundant. In the stead of <em>p</em> ∧ <em>q</em>, we can write ¬(¬<em>p</em> ∨ ¬<em>q</em>) (DeMorgan’s Laws). And for <em>p</em> ⇒ <em>q</em> we can write ¬<em>p</em> ∨ <em>q</em> (Material Implication). Thus we see that we can write any statement in propositional logic using only ¬, ∨, and the parentheses<sup class="ref" id="r19">*</sup>. This simplification will become important when we go through Gödel’s proof.</p>
+
+  <aside id="n19">We can dispense with even the parentheses. Reverse Polish notation obviates the need for brackets and was widely used in the early days of computers for efficient stack usage.</aside>
+
+  <p>Predicate logic extends propositional logic and enables us to talk not only about statements, but variables. It consists of what are called <em>quantifiers</em>, which allow for the quantification of variables. The relevant concepts and symbols for them are</p>
+
+  <table>
+    <tr><td>There Exists</td> <td>∃</td></tr>
+    <tr><td>For All</td>      <td>∀</td></tr>
+  </table>
+
+  <p>We call ∃ the existential quantifier and ∀ the universal quantifier.</p>
+
+  <p>And yet again we are able to do away with a certain term. Instead of writing ∃ <em>x</em>(<em>p</em>) (there exists an <em>x</em> such that <em>p</em> is true), we can write ¬(<em>x</em> ∀ ¬<em>p</em>) (it is not the case that for all <em>x</em>, <em>p</em> is false). Thus we can make any statement in predicate logic using only the universal quantifier and the symbols from propositional logic.</p>
+
+  <p>An important fact about predicate logic is that every variable must be paired with a quantifier in order for the statement to be considered true or false. Consider the statement “<em>x</em> is prime”. Is that statement true or false? The correct answer is no; it is not true or false. We can, however, assign a truth value to the statements “∃ <em>x</em> (<em>x</em> is prime)” and “<em>x</em> ∀ (<em>x</em> is prime)” (these statements being true and false, respectively). When a variable is quantified it is called bound. When it is not bound it is called free. And when there exists a free variable in a statement we know the statement cannot be assigned a truth value, and thus cannot be proved nor disproved.</p>
+
+  <p>Thus, the elimination of the existential quantifier allows us to test whether a statement can be assigned a truth value with greater ease, as we need only test whether every variable is paired with the universal quantifier. This will be useful in Gödel’s proof, as we will need to make many very specific statements about the exact structure of strings (which we recall are the formal representations of statements).</p>
+
+  <p>An interesting note; both these systems of logic are complete, a fact established in 1929 by none other than Gödel in his doctoral thesis.</p>
+
+  <h4 id="sec2-1-2">2.1.2. Primitive Recursion</h4>
+
+  <p>Primitive recursive is a fancy term for a fairly basic idea. If a formula is primitive recursive all that is meant is that we can assign a finite bound to how long it will take to evaluate it. By formula we mean either what is commonly called a function, like <em>x</em><sup>2</sup> or <em>x</em>!, something that takes an input and transforms it in some way, or a statement, in which case an evaluation would yield <em>true</em> or <em>false</em> (upon binding all variables, that is).</p>
+
+  <p>Examples of primitive recursive formulae include <em>x</em>!, as we know this will take at most <em>x</em> steps to evaluate, and <em>x</em> < <em>y</em>, as we know this will take at most <em>y</em> steps to very its truth or falsity<sup class="ref" id="r1">*</sup>. In reality these will take far longer, as evaluating <em>x</em>!, for example, requires <em>x</em> steps of multiplication, which will in turn take many steps of addition, which will in turn take many steps of the successor function, but all of these are primitive recursive operations, and successive iterations of finite operations will always be finite. All common arithmetic formulae, such as addition, multiplication, exponentiation, factorials, equality, etc. are primitive recursive.</p>
+
+  <aside id="n1">Simply add every number up to <em>y</em> to <em>x</em> and see if the result is <em>y</em>.</aside>
+
+  <p>For an example of a formula that is not primitive recursive think of just about any unsolved problem in number theory. The Collatz Conjecture, for example, considers the function</p>
+
+  <span class="math display">
+    \[
+      f(n) =
+      \begin{cases}
+      3n+1 & \text{if $n$ is odd} \\
+      n/2 & \text{if $n$ is even} \\
+      \end{cases}
+    \]
+  </span>
+
+  <p>and claims that continuously applying the function to any positive integer will always result, eventually, in getting a 1. The problem is that there doesn’t seem to be any way to assign a bound to the “eventually” part. Even though every number we’ve tried goes 1, we have no idea how to calculate how long it might take as a function of the number with which we start.</p>
+
+  <p>The importance of primitive recursive formulae is that if an arithmetic formula is primitive recursive it can be expressed within an axiomatic system for arithmetic of equivalent or greater power than Peano arithmetic, such as Principia Mathematica or Zermelo-Fraenkel. This means that if a formula can be shown to be primitive recursive we can be sure that there exists a formalization of that formula (that is, a string of symbols representing the formula) within our system. This is absolutely crucial to Gödel’s work, as a large portion of his proof is dedicated to showing that certain arithmetic relations can be expressed in the system of Principia Mathematica.</p>
+
+  <h3 id="sec2-2">2.2. The Proof</h3>
+
+  <p>We will now prove the Incompleteness of arithmetic.</p>
+
+  <h4 id="sec2-2-1">2.2.1. Defining the System P</h4>
+
+  <p>We will start by going through the details of the formal system in which we are working, which we will call P. P is Principia Mathematica augmented by the Peano axioms. Including the Peano axioms is actually redundant, but they are useful in simplifying things. The basic symbols we will use are “¬” (not), “∨” (or), “∀” (for all), “0”, “<em>s</em>” (successor), “(”, and “)”.</p>
+
+  <p>In addition to these, we will need an infinite amount of symbols to represent variables. Recall that Principia Mathematica advanced <em>Ramified Type Theory</em>, in which there are terms of first type, which are numbers<sup class="ref"p id="r2">*</sup>, terms of second type, which are sets of numbers, terms of third type, which are sets of sets of numbers, and so on. Thus, we will have variables of different types, which we will indicate with a subscript. So <em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>, <em>z</em><sub>1</sub> ... will be variables that stand for numbers, <em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>, <em>z</em><sub>2</sub> ... will be variables that stand for sets, <em>x</em><sub>3</sub>, <em>y</em><sub>3</sub>, <em>z</em><sub>3</sub> ... will be sets of sets, and so on.</p>
+
+  <aside id="n2">They are numbers in our case because our system is arithmetic, but in general can be anything.</aside>
+
+  <p>Thus, our basic symbols are</p>
+
+  <span class="math display">
+    $$
+    \neg, \vee, \forall, 0, s, (, )
+    $$
+    $$
+    x_1, y_1, z_1, \ldots
+    $$
+    $$
+    x_2, y_2, z_2, \ldots
+    $$
+    $$
+    \vdots
+    $$
+  </span>
+
+  <p>We now define our axioms.</p>
+
+  <p id="peano"><strong>I - Axioms from Peano Arithmetic</strong></p>
+
+  <ol>
+    <li>¬(<em>sx</em><sub>1</sub> = 0)<sup class="ref" id="r3">*</sup></li>
+    <li><em>sx</em><sub>1</sub> = <em>sy</em><sub>1</sub> ⇒ <em>x</em><sub>1</sub> = <em>y</em><sub>1</sub></li>
+    <li>[<em>x</em><sub>2</sub>(0) ∧ <em>x</em><sub>1</sub> ∀ (<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) ⇒ <em>x</em><sub>2</sub>(<em>sx</em><sub>1</sub>))] ⇒ <em>x</em><sub>1</sub> ∀ <em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)</li>
+  </ol>
+
+  <aside id="n3">=, ∧, and ⇒ are for abbreviation only; the actual axioms do not contain them. <em>x</em><sub>1</sub> = <em>y</em><sub>1</sub> can be expressed in our system as <em>x</em><sub>2</sub>∀(¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)) ∨ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>)). <em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) denotes <em>x</em><sub>1</sub> ∈ <em>x</em><sub>2</sub>.</aside>
+
+  <p id="propositional"><strong>II - Axioms from Propositional Logic</strong></p>
+
+  <ol>
+    <li><em>p</em> ∨ <em>p</em> ⇒ <em>p</em></li>
+    <li><em>p</em> ⇒ <em>p</em> ∨ <em>q</em></li>
+    <li><em>p</em> ∨ <em>q</em> ⇒ <em>q</em> ∨ <em>p</em></li>
+    <li>(<em>p</em> ⇒ <em>q</em>) ⇒ (<em>r</em> ∨ <em>p</em> ⇒ <em>r</em> ∨ <em>q</em>)</li>
+  </ol>
+
+  <p>Where any formulae may be substituted for <em>p</em>, <em>q</em>, and <em>r</em>.</p>
+
+  <p id="predicate"><strong>III - Axioms from Predicate Logic</strong></p>
+
+  <ol>
+    <li><em>v</em> ∀ <em>a</em> ⇒ <em>a</em> Sub(<em>v</em>, <em>b</em>)<sup class="ref"p id="r4">*</sup></li>
+    <li><em>v</em> ∀ (<em>c</em> ∨ <em>a</em>) ⇒ <em>c</em> ∨ <em>v</em> ∀ <em> a</em></li>
+  </ol>
+
+  <aside id="n4"><em>a</em> Sub(<em>v</em>,<em>b</em>) denotes substituting <em>v</em> with <em>b</em> in <em>a</em>. This axiom can be thought of as saying “if <em>a</em> is true for any value it is true for a given value”.</aside>
+
+  <p>Where <em>a</em> may be any formula, <em>v</em> any variable, <em>b</em> any variable of the same type as <em>v</em> which does not contain a variable bound in <em>a</em> where <em>v</em> is free (more will be said on this later), and <em>c</em> any formula in which <em>v</em> is bound.</p>
+
+  <p id="comprehension"><strong>IV - Axiom of Comprehension</strong></p>
+
+  <ol>
+    <li>∃ <em>u</em> (<em>v</em> ∀ (<em>u</em>(<em>v</em>) ⇐⇒ <em>a</em>))</li>
+  </ol>
+
+  <p>Where <em>v</em> and <em>u</em> may be substituted for a variable of type <em>n</em> and <em>n</em> + 1, respectively, and <em>a</em> may be any formula in which <em>u</em> is bound. This axiom establishes that sets are defined by rules, sometimes called intensions.</p>
+
+  <p id="extensionality"><strong>V - Axiom of Extensionality</strong></p>
+
+  <ol>
+    <li><em>x</em><sub>1</sub> ∀ (<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) ⇐⇒ <em>y</em><sub>2</sub>(<em>x</em><sub>1</sub>)) ⇒ <em>x</em><sub>2</sub> = <em>y</em><sub>2</sub></li>
+  </ol>
+
+  <p>Or any version of this formula where the type of all variables are increased by the same amount (called a <em>type-lift</em>). This axiom defines set equality for every type of set.</p>
+
+  <p>We now define the relation <em>immediate consequence of</em>. A formula <em>c</em> is an immediate consequence of <em>a</em> if <em>a</em> is the formula <em>v</em> ∀ <em>c</em>, where <em>v</em> is any given variable. It is the immediate consequence of <em>a</em> and <em>b</em> if <em>a</em> is the formula <em>b</em> ⇒ <em>c</em>. It is a fact of great import that all statements within any proof are produced from previous statements using only these logical steps. Thus, the set of provable formulae is the set that contains the axioms and is closed with respect to <em>immediate consequence of</em>. This fact will prove of great use, as we will later need to describe relations that define provability.</p>
+
+  <h4 id="sec2-2-2">2.2.2. Gödel Numbering</h4>
+
+  <p>This next step is the key to the proof. What we will do is assign each formula and proof (sequence of formulae) a number, which we will call the Gödel number<sup class="ref" id="r5">*</sup>. We will do this in such a way that if the proof <em>a</em> is a proof of the formula <em>b</em>, then the Gödel number for <em>a</em> will have a certain arithmetic relation with the Gödel number for <em>b</em>. And because this relation is arithmetic, it can be described within our system P. This will enable P to, in a sense, talk about itself. As things turn out, self-reference can never be banished from math.</p>
+
+  <aside id="n5">Gödel was not so bold as to name these numbers after himself, but these numbers now universally bear his name.</aside>
+
+  <p>We will begin by defining a function Γ : {Strings in P} → <strong>N</strong> which will take strings in P and yield their Gödel number. We will define this function in terms of the basic symbols to start, and use that definition to allow statements and proofs into the domain of Γ.</p>
+
+  <table>
+    <tr>
+      <td>Γ(0) = 1</td>
+      <td>Γ(<em>s</em>) = 3</td>
+      <td>Γ(¬) = 5</td>
+      <td>Γ(∨) = 7</td>
+    </tr>
+    <tr>
+      <td>Γ(∀) = 9</td>
+      <td>Γ(() = 11</td>
+      <td></td>
+      <td>Γ()) = 13</td>
+    </tr>
+  </table>
+
+  <p>Further, Γ will assign to each variable a number. Variables of first type, <em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>, <em>z</em><sub>1</sub>, and so on, it will assign primes greater than 13. So</p>
+
+  <table>
+    <tr>
+      <td>Γ(<em>x</em><sub>1</sub>) = 17</td>
+      <td>Γ(<em>y</em><sub>1</sub>) = 19</td>
+      <td>Γ(<em>z</em><sub>1</sub>) = 23 ...</td>
+    </tr>
+  </table>
+
+  <p>For variables of greater type we will do the same, but raise the primes to powers equal to the type. So in general</p>
+
+  <table>
+    <tr>
+      <td>Γ(<em>x</em><sub><em>n</em></sub>) = 17<sup><em>n</em></sup></td>
+      <td>Γ(<em>y</em><sub><em>n</em></sub>) = 19<sup><em>n</em></sup></td>
+      <td>Γ(<em>z</em><sub><em>n</em></sub>) = 23<sup><em>n</em></sup> ...</td>
+    </tr>
+  </table>
+
+  <p>Now we will use this numbering to assign numbers to formulae. Every formula can be thought of as a sequence of symbols, and as such may be represented by a sequence of Gödel numbers. For example, the statement</p>
+
+  <div class="center">
+    ¬<em>x</em><sub>2</sub> ∀ ¬(<em>x</em><sub>1</sub> ∀ ¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>))),
+  </div class="center">
+
+  <p>which states the existence of the empty set (we'll call this formula <em>e</em>), would be given the sequence</p>
+
+  <div class="center">
+    5, 17<sup>2</sup>, 9, 5, 11, 17, 9, 5, 11, 17<sup>2</sup>, 11, 17, 13, 13, 13.
+  </div class="center">
+
+  <p>We can use such sequences to produce a unique number for every formula by taking the first prime to the power of the first number in the sequence, the second prime to power of the second number in the sequence, and so on. Thus, the Gödel number for <em>e</em>, the above formula, would be</p>
+
+  <div class="center">
+    Γ(<em>e</em>) = 2<sup>5</sup> · 3<sup>17<sup>2</sup></sup> · 5<sup>9</sup> · 7<sup>5</sup> · 11<sup>11</sup> · 13<sup>17</sup> · 17<sup>9</sup> · 19<sup>5</sup> · 23<sup>11</sup> · 29<sup>17<sup>2</sup></sup> · 31<sup>11</sup> · 37<sup>17</sup> · 41<sup>13</sup> · 43<sup>13</sup> · 47<sup>13</sup>
+  </div class="center">
+
+  <p>Which is approximately 2.4 · 10<sup>743</sup>. These numbers get very large very quickly, and as such we will not calculate any of them explicitly. This assignment is used because it gives every formula a unique number<sup class="ref" id="r6">*</sup> that has convenient arithmetic properties.</p>
+
+  <aside id="n6">By the Fundamental Theorem of Arithmetic</aside>
+
+  <p>Now that we have a unique number for every formula we can get a unique number for every proof by simply repeating the process described above. A proof can be thought of as a sequence of formulae, so if a proof <em>a</em> consisted of formulae that gave the sequence of Gödel numbers <em>a</em><sub>1</sub>, ..., <em>a</em><sub><em>n</em></sub> the Gödel number for the proof would be</p>
+
+  <span class="math display">
+    \[
+      \Gamma(a)=\prod_{k = 1}^{n} p_k^{a_{k}}
+    \]
+  </span>
+
+  <p>Where <em>p<sub>k</sub></em> is the <em>k<sup>th</sup></em> prime. This assignment makes Γ injective. If we restrict the codomain of Γ to Gödel numbers, we get a bijective function Γ : {Strings in P} → {Gödel Numbers}, which allows us to formulate Γ<sup>-1</sup>, which gives the statement for a given Gödel number.</p>
+
+  <p>We can now use the Γ function to allow P to talk about itself. For example, if we consider our statement <em>e</em> = ¬<em>x</em><sub>2</sub> ∀ ¬(<em>x</em><sub>1</sub> ∀ ¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>))) and wish to say of it that its first symbol is “¬”, we could say that 2<sup>5</sup> divides Γ(<em>e</em>), but 2<sup>6</sup> does not. This gives an arithmetic interpretation of a statement about a statement of P.</p>
+
+  <p>To show that something about P may be said within P it is sufficient to show that the arithmetic relation corresponding to that something is primitive recursive. In our example, this would mean that in order to be sure that P can say that “¬” is the first symbol in <em>e</em> we would show that “2<sup>5</sup> divides <em>x</em>, while 2<sup>6</sup> does not” is a primitive recursive relation. Fortunately it is, and this is easily shown, but more complicated and esoteric relations are not so readily shown. Our goal will be to show that P is capable of saying “<em>x</em> is a proof of <em>y</em>”, and to do so we will show that the arithmetic relation corresponding to this statement is primitive recursive.</p>
+
+  <h4 id="sec2-2-3">2.2.3 A Primitive Recursive Series</h4>
+
+  <p>It can easily be shown that addition, multiplication, exponentiation, less than, and equality are primitive recursive, so we will start from these and build up a series of 45 formulae, each employing previous ones, of which the final will be an arithmetic relation between two numbers <em>x</em> and <em>y</em> such that, if satisfied, Γ<sup>-1</sup>(<em>x</em>) will be a proof of Γ<sup>-1</sup>(<em>y</em>).</p>
+
+  <p>For each formula (in <span class="formula">gold</span>) we will indicate a bound (in <span class="bound">pink</span>) on the number of steps necessary to evaluate the formula in order to ensure it is primitive recursive. Where a bound is not indicated the formula is either given a recursive definition, as in [<a href="#f3">3</a>]<sup class="ref" id="r7">*</sup>, [<a href="#f4">5</a>], or an explicit function, as in [<a href="#f4">4</a>], [<a href="#f9">9</a>], [<a href="#f10">10</a>]. These formulae are primitive recursive by nature.</p>
+
+  <aside id="n7">We will use [<em>n</em>] to denote the <em>n<sup>th</sup></em> formula on this list.</aside>
+
+
+  <div class="formRule" id="f1">
+    1. <span class="formula"><em>x</em> / <em>y</em></span> | <em>x</em> is divisible by <em>y</em>.
+
+    <ul>
+      <li>
+        ∃<em>z</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>x</em> = <em>y</em> · <em>z</em></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f2">
+    2. <span class="formula">Prim(<em>x</em>)</span> | <em>x</em> is prime.
+    <ul>
+      <li>
+        ¬∃<em>z</em> <span class="bound">< <em>x</em></span> such that
+        <ul>
+          <li>z ≠ 1</li>
+          <li><em>x</em> / <em>z</em> [<a href="#f1">1</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f3">
+    3. <span class="formula"><em>n</em>Pr<em>x</em></span> | <em>n<sup>th</sup></em> prime in <em>x</em>.<sup class="ref" id="r8">*</sup>
+    <ul>
+      <li>0Pr<em>x</em> = 0</li>
+      <li>
+        (<em>n</em> + 1)Pr <em>x</em> = smallest <em>y</em> such that
+        <ul>
+          <li><em>n</em>Pr <em>x</em> < <em>y</em> < <em>x</em></li>
+          <li>Prim(<em>y</em>) [<a href="#f2">2</a>]</li>
+          <li><em>x</em> / <em>y</em> [<a href="#f1">1</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n8">e.g. 168 = 2<sup>3</sup> · 3 · 7; 1 Pr 168 = 2, 2 Pr 168 = 3, 3 Pr 168 = 7 etc.</aside>
+
+  <div class="formRule" id="f4">
+    4. <span class="formula"><em>x</em>!</span>
+    <ul>
+      <li>0! = 1</li>
+      <li>(<em>n</em> + 1)! = (<em>n</em> + 1) · <em>n</em>!</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f5">
+    5. <span class="formula">Pr(<em>n</em>)</span> | <em>n<sup>th</sup></em> prime.
+    <ul>
+      <li>Pr(0) = 0</li>
+      <li>
+        Pr(<em>n</em> + 1) = smallest <em>y</em> such that
+        <ul>
+          <li>Prim(<em>y</em>) [<a href="#f2">2</a>]</li>
+          <li>Pr(<em>n</em>) < Pr(<em>n</em> + 1) ≤ Pr(<em>n</em>)! [<a href="#f4">4</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <p>Thus far the formulae have been purely arithmetic with no relation to describing Gödel numbers. From here on out the arithmetic formulae will be designed to operate on Gödel numbers and will correspond to some description of the statements those Gödel numbers represent. As such, the corresponding description the arithmetic formulae represent will be given in place of arithmetic descriptions. The arithmetic descriptions will however, as above, be given explicitly. The reader is encouraged to go through the arithmetic definition to verify its correspondence with the stated interpretation. The [<em>n</em>]’s are useful references for this.</p>
+
+  <div class="formRule" id="f6">
+    6. <span class="formula"><em>n</em>Trm <em>x</em></span> | Gives the <em>n<sup>th</sup></em> term in <em>x</em>.<sup class="ref" id="r9">*</sup>
+    <ul>
+      <li>
+        smallest <em>y</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>x</em> / (<em>n</em>Pr <em>x</em>)<em><sup>y</sup></em> [<a href="#f1">1</a>, <a href="#f3">3</a>]</li>
+          <li>¬<em>x</em> / (<em>n</em>Pr <em>x</em>)<sup><em>y</em>+1</sup></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n9"><em>n<sup>th</sup></em> symbol in a lone formula and <em>n<sup>th</sup></em> formula in a proof</aside>
+
+  <div class="formRule" id="f7">
+    7. <span class="formula"><em>l</em>(<em>x</em>)</span> | Length of <em>x</em>.<sup class="ref" id="r10">*</sup>
+    <ul>
+      <li>
+        smallest <em>y</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>y</em>Pr <em>x</em> > 0 [<a href="#f3">3</a>]</li>
+          <li>(<em>y</em> + 1)Pr <em>x</em> = 0</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n10">In terms of symbols for a formula or formulae for a proof</aside>
+
+  <div class="formRule" id="f8">
+    8. <span class="formula"><em>x</em> ∗ <em>y</em></span> | Gives the concatenation of <em>x</em> and <em>y</em>.
+    <ul>
+      smallest <em>z</em> <span class="bound">≤ [Pr(<em>l</em>(<em>x</em>) + <em>l</em>(<em>y</em>))]<sup><em>x</em> + <em>y</em></sup></span> such that [<a href="#f5">5</a>, <a href="#f7">7</a>]
+      <ul>
+        <li>
+          for all <em>n</em> ≤ <em>l</em>(<em>x</em>) [<a href="#f7">7</a>]
+          <ul>
+            <li><em>n</em>Trm <em>z</em> = <em>n</em>Trm <em>x</em> [<a href="#f6">6</a>]</li>
+          </ul>
+        </li>
+        <li>
+          for all <em>n</em> ≤ <em>l</em>(<em>y</em>)
+          <ul>
+            <li>[<em>n</em> + l(<em>x</em>)]Trm <em>z</em> = <em>n</em>Trm <em>y</em></li>
+          </ul>
+        </li>
+      </ul>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f9">
+    9. <span class="formula">R(<em>x</em>)</span> | String consisting only of <em>x</em>.
+    <ul>
+      <li>2<sup><em>x</em></sup></li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f10">
+    10. <span class="formula">P(<em>x</em>)</span> | Puts <em>x</em> in parentheses.
+    <ul>
+      <li>R(11) ∗ <em>x</em> ∗ R(13) [<a href="#f8">8</a>, <a href="#f9">9</a>]</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f11">
+    11. <span class="formula"><em>n</em>Var <em>x</em></span> | <em>x</em> is a variable of the <em>n<sup>th</sup></em> type.
+    <ul>
+      <li>∃<em>z</em> <span class="bound">≤ <em>x</em></span> such that</li>
+      <ul>
+        <li><em>z</em> > 13</li>
+        <li>Prim(<em>z</em>) [<a href="#f2">2</a>]</li>
+        <li><em>x</em> = <em>z<sup>n</sup></em></li>
+      </ul>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f12">
+    12. <span class="formula">Var(<em>x</em>)</span> | <em>x</em> is a variable.
+    <ul>
+      <li>∃<em>n</em> <span class="bound">≤ <em>x</em></span> such that</li>
+      <ul>
+        <li><em>n</em>Var <em>x</em> [<a href="#f11">11</a>]</li>
+      </ul>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f13">
+    13. <span class="formula">Neg(<em>x</em>)</span> | Negation of <em>x</em>.
+    <ul>
+      <li>R(5) ∗ P(<em>x</em>) [<a href="#f8">8</a>, <a href="#f9">9</a>, <a href="#f10">10</a>]</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f14">
+    14. <span class="formula"><em>x</em>Dis <em>y</em></span> | <em>x</em> or <em>y</em> (disjunction of <em>x</em> and <em>y</em>).
+    <ul>
+      <li>P(<em>x</em>) ∗ R(7) ∗ P(<em>y</em>) [<a href="#f8">8</a>, <a href="#f9">9</a>, <a href="#f10">10</a>]</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f15">
+    15. <span class="formula"><em>x</em>Gen <em>y</em></span> | <em>x</em> generalizes for <em>y</em> (for all <em>x</em>, <em>y</em> is true).
+    <ul>
+      <li>R(<em>x</em>) ∗ R(9) ∗ P(<em>y</em>) [<a href="#f8">8</a>, <a href="#f9">9</a>, <a href="#f10">10</a>]</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f16">
+    16. <span class="formula"><em>n</em>S<em>x</em></span> | <em>n<sup>th</sup></em> successor of <em>x</em>.
+    <ul>
+      <li>0S<em>x</em> = <em>x</em></li>
+      <li>(<em>n</em> + 1)S<em>x</em> = R(3) ∗ <em>n</em>S<em>x</em> [<a href="#f8">8</a>, <a href="#f9">9</a>]</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f17">
+    17. <span class="formula">N(<em>n</em>)</span> | symbol for the number <em>n</em><sup class="ref" id="r11">*</sup>.
+    <ul>
+      <li>N(<em>n</em>) = <em>n</em>S[R(1)] [<a href="#f9">9</a>, <a href="#f16">16</a>]</li>
+    </ul>
+  </div>
+
+  <aside id="n11">e.g. N(4) corresponds to "ssss0".</aside>
+
+  <div class="formRule" id="f18">
+    18. <span class="formula">Typ<sub>1</sub>' (<em>x</em>)</span> | <em>x</em> is a term of first type.<sup class="ref" id="r12">*</sup>
+    <ul>
+      <li>
+        ∃<em>m</em>, <em>n</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>m</em> = 1 or 1Var <em>m</em> [<a href="#f11">11</a>]</li>
+          <li><em>x</em> = <em>n</em>S[R(<em>m</em>)] [<a href="#f9">9</a>, <a href="#f16">16</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n12">That is, a number or variable representing a number: 0, ss...s0, <em>x</em><sub>1</sub>, ss...s<em>x</em><sub>1</sub>.</aside>
+
+  <div class="formRule" id="f19">
+    19. <span class="formula">Typ<sub><em>n</em></sub>(<em>x</em>)</span> | <em>x</em> is a term of <em>n<sup>th</sup></em> type.
+    <ul>
+      <li><em>n</em> = 1 and Typ<sub>1</sub>′(<em>x</em>) [<a href="#f18">18</a>], or</li>
+      <li>
+        <em>n</em> > 1 and ∃<em>v</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>n</em>Var <em>v</em> [<a href="#f11">11</a>]</li>
+          <li><em>x</em> = R(<em>v</em>) [<a href="#f9">9</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <p>We will pause for a moment and summarize some of the things we have found. We now have arithmetic formulae for finding any term within a string [<a href="#f6">6</a>], for joining two strings together [<a href="#f8">8</a>], for assessing whether a string is a variable and of what type ([<a href="#f12">12</a>] and [<a href="#f11">11</a>] respectively), and for placing various logical operations on strings [<a href="#f13">13</a>, <a href="#f14">14</a>, <a href="#f15">15</a>], among other things.</p>
+
+  <p>While these formulae have been a sort of hodge-podge of concepts, our next four formulae will be dedicated to producing an arithmetic formula for the concept “<em>x</em> is a formula”. To do this we recognize that all formulae can be built with only four concepts - set membership, negation, disjunction, and generalization. So we will define in [<a href="#f20">20</a>] an arithmetic formulae that tests whether a string is of the form <em>x</em><sub><em>n</em>+1</sub>(<em>x<sub>n</sub></em>), which we recall denotes <em>x<sub>n</sub></em> ∈ <em>x</em><sub><em>n</em>+1</sub>. Then in [<a href="#f21">21</a>] we will give a formula that tests whether the string is a negation, disjuntion, or generalization. In [<a href="#f22">22</a>] we will test whether the string is a series of formulae<sup class="ref" id="r13">*</sup>, which we will use in [<a href="#f23">23</a>] to isolate the last formula, which we will know must be a formula.</p>
+
+  <aside id="n13">It may seem circular that we are testing for being a string of formulae before we test for being a formula. What is happening is that we know all formulae can be produced from the basic symbols using certain operations, so we test for whether a sequence consists of strings such that each is produced from the previous by such operations, and then if there exists such a sequence whose last term is <em>x</em>, we can know with certainty that <em>x</em> is a formula.</aside>
+
+  <div class="formRule" id="f20">
+    20. <span class="formula">Set(<em>x</em>)</span> | <em>x</em> expresses set inclusion.
+    <ul>
+      <li>
+        ∃<em>y</em>, <em>z</em>, <em>n</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li>Typ<sub><em>n</em></sub>(<em>y</em>) [<a href="#f19">19</a>]</li>
+          <li>Typ<sub><em>n</em>+1</sub> (<em>z</em>)</li>
+          <li><em>x</em> = <em>z</em> ∗ P(<em>y</em>) [<a href="#f8">8</a>, <a href="#f10">10</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f21">
+    21. <span class="formula">Log(<em>x</em>, <em>y</em>, <em>z</em>)</span> | <em>x</em> is the negation, disjunction with <em>z</em>, or generalization of <em>y</em>.
+    <ul>
+      <li><em>x</em> = Neg(<em>y</em>) [<a href="#f13">13</a>], or</li>
+      <li><em>x</em> = <em>y</em>Dis <em>z</em> [<a href="#f14">14</a>], or</li>
+      <li>
+        ∃<em>v</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li>Var(<em><em>v</em></em>)</li>
+          <li><em>x</em> = <em>v</em>Gen <em>y</em> [<a href="#f15">15</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f22">
+    22. <span class="formula">Fs(<em>x</em>)</span> | <em>x</em> is a formula series.
+    <ul>
+      <li><em>l</em>(<em>x</em>) > 0</li>
+      <li>For all <em>n</em> <span class="bound">≤ <em>l</em>(<em>x</em>)</span>, <em>n</em> ≠ 0</li>
+      <ul>
+        <li>Set(<em>n</em>Trm <em>x</em>) [<a href="#f6">6</a>, <a href="#f20">20</a>], or</li>
+        <li>
+          ∃<em>p</em>, <em>q</em> < <em>n</em> where <em>p</em>, <em>q</em> ≠ 0 such that
+          <ul>
+            <li>Log(<em>n</em>Trm <em>x</em>, <em>p</em>Trm <em>x</em>, <em>q</em>Trm <em>x</em>) [<a href="#f21">21</a>]</li>
+          </ul>
+        </li>
+      </ul>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f23">
+    23. <span class="formula">Form(<em>x</em>)</span> | <em>x</em> is a formula.
+    <ul>
+      <li>
+        ∃<em>n</em> <span class="bound">≤ (Pr[<em>l</em>(<em>x</em>)<sup>2</sup>])<sup><em>x</em><em>l</em>(<em>x</em>)<sup>2</sup></sup></span><sup class="ref" id="r14">*</sup> such that [<a href="#f5">5</a>, <a href="#f7">7</a>]
+        <ul>
+          <li>Fs(<em>n</em>) [<a href="#f22">22</a>]</li>
+          <li><em>x</em> = [<em>l</em>(<em>n</em>)]Trm <em>n</em> [<a href="#f6">6</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n14">(Pr[<em>l</em>(<em>x</em>)<sup>2</sup>])<sup><em>x</em>l(<em>x</em>)<sup>2</sup></sup> is the bound here for the following reason: the length of the shortest series of formulae that produces <em>x</em> can at most be equal to the number of formulae that make up the formula <em>x</em>. There are at most <em>l</em>(<em>x</em>) formulae of length 1, <em>l</em>(<em>x</em>) − 1 formulae of length 2, and so on, so at most <em>l</em>(<em>x</em>)[<em>l</em>(<em>x</em>) + 1]/2 ≤ <em>l</em>(<em>x</em>)<sup>2</sup>. The prime numbers in <em>n</em> can thus be assumed to all be less than Pr[<em>l</em>(<em>x</em>)<sup>2</sup>] and the quantity of them less than <em>l</em>(<em>x</em>)<sup>2</sup> and their exponents less than <em>x</em>.</aside>
+
+  <p>We now have a way to take the Gödel number for a string and determine whether that string is a formula using the arithmetic formula defined above.</p>
+
+  <p>In the next eight formulae we will develop the ability to talk about free and bound variables in formulae. Recall that a variable is bound if it is quantified, which in our case means that it is quantified with the universal quantifier. If it is not bound it is free. The importance of this is that the only formulae that can be assigned a truth value are those in which every variable is bound. In [<a href="#f31">31</a>] we will have an arithmetic formula that corresponds to the notion of replacing all free variables with something else.</p>
+
+  <div class="formRule" id="f24">
+    24. <span class="formula"><em>v</em>Bnd <em>n</em>, <em>x</em></span> | <em>v</em> is bound at the <em>n<sup>th</sup></em> place in <em>x</em>.
+    <ul>
+      <li>Var(<em>v</em>) [<a href="#f12">12</a>]</li>
+      <li>Form(<em>x</em>) [<a href="#f23">23</a>]</li>
+      <li>
+        ∃<em>a</em>, <em>b</em>, <em>c</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>x</em> = <em>a</em> ∗ (<em>v</em>Gen <em>b</em>) ∗ <em>c</em> [<a href="#f8">8</a>, <a href="#f15">15</a>]</li>
+          <li>Form(<em>b</em>)</li>
+          <li><em>l</em>(<em>a</em>) + 1 ≤ <em>n</em> ≤ <em>l</em>(<em>a</em>) + <em>l</em>(<em>v</em>Gen <em>b</em>) [<a href="#f7">7</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f25">
+    25. <span class="formula"><em>v</em>Fr <em>n</em>, <em>x</em></span> | <em>v</em> is free at the <em>n<sup>th</sup></em> place in <em>x</em>.
+    <ul>
+      <li>Var(<em>v</em>) [<a href="#f12">12</a>]</li>
+      <li>Form(<em>x</em>) [<a href="#f23">23</a>]</li>
+      <li><em>v</em> = <em>n</em>Trm <em>x</em> [<a href="#f6">6</a>]</li>
+      <li><em>n</em> ≤ <em>l</em>(<em>x</em>) [<a href="#f7">7</a>]</li>
+      <li>¬(<em>v</em>Bnd <em>n</em>, <em>x</em>) [<a href="#f24">24</a>]</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f26">
+    26. <span class="formula"><em>v</em>Free <em>x</em></span> | <em>v</em> occurs in <em>x</em> as a free variable.
+    <ul>
+      <li>
+        ∃<em>n</em> <span class="bound">≤ <em>l</em>(<em>x</em>)</span> such that [<a href="#f7">7</a>]
+        <ul>
+          <li><em>v</em>Fr <em>n</em>, <em>x</em> [<a href="#f25">25</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f27">
+    27. <span class="formula"><em>x</em>Su <em>n</em>, <em>y</em></span> | Substitutes the <em>n<sup>th</sup></em> term in <em>x</em> with <em>y</em>.
+    <ul>
+      <li>
+        smallest <em>z</em> <span class="bound">≤ [Pr(<em>l</em>(<em>x</em>) + <em>l</em>(<em>y</em>))]<sup><em>x</em>+<em>y</em></sup></span> such that [<a href="#f5">5</a>, <a href="#f7">7</a>]
+        <ul>
+          <li>
+            ∃<em>u</em>, <em>v</em> ≤ <em>x</em> such that
+            <ul>
+              <li><em>x</em> = <em>u</em> ∗ R(<em>n</em>Trm <em>x</em>) ∗ <em>v</em> [<a href="#f6">6</a>, <a href="#f8">8</a>, <a href="#f9">9</a>]</li>
+              <li><em>z</em> = <em>u</em> ∗ <em>y</em> ∗ <em>v</em></li>
+              <li><em>n</em> = <em>l</em>(<em>u</em>) + 1</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f28">
+    28. <span class="formula"><em>k</em>Pl <em>v</em>, <em>x</em></span> | The (<em>k</em> + 1)<sup><em>th</em></sup> place from the end of <em>x</em> where <em>v</em> is free.<sup class="ref" id="r15">*</sup>
+    <ul>
+      <li>
+        0Pl <em>v</em>, <em>x</em> = smallest <em>n</em> <span class="bound">≤ <em>l</em>(<em>x</em>)</span> such that [<a href="#f7">7</a>]
+        <ul>
+          <li><em>v</em>Fr <em>n</em>, <em>x</em> [25]</li>
+          <li>
+            ¬∃<em>p</em> ≤ l(<em>x</em>) such that
+            <ul>
+              <li><em>p</em> > <em>n</em></li>
+              <li><em>v</em>Fr <em>p</em>, <em>x</em></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        (<em>k</em> + 1)Pl <em>v</em>, <em>x</em> = <em>n</em> <span class="bound">< <em>k</em>Pl <em>v</em>, <em>x</em></span> such that
+        <ul>
+          <li><em>v</em>Fr <em>n</em>, <em>x</em></li>
+          <li>
+            ∃<em>p</em> < <em>k</em>Pl <em>v</em>, <em>x</em> such that
+            <ul>
+              <li><em>p</em> > <em>n</em></li>
+              <li><em>v</em>Fr <em>p</em>, <em>x</em></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n15">This means <em>k</em> = 0 gives the last place <em>v</em> is free, <em>k</em> = 1 gives the penultimate place, etc.</aside>
+
+  <div class="formRule" id="f29">
+    29. <span class="formula">T(<em>v</em>, <em>x</em>)</span> | Total number of places in <em>x</em> where <em>v</em> is free.
+    <ul>
+      <li>
+        smallest <em>n</em> <span class="bound">≤ <em>l</em>(<em>x</em>)</span> such that [<a href="#f7">7</a>]
+        <ul>
+          <li><em>n</em>Pl <em>v</em>, <em>x</em> = 0 [<a href="#f28">28</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f30">
+    30. <span class="formula"><em>x</em>Sub<sub><em>k</em></sub>(<em>v</em>, <em>y</em>)</span> | Substitutes last <em>k</em> free <em>v</em>'s with <em>y</em>.
+    <ul>
+      <li><em>x</em>Sub<sub>0</sub>(<em>v</em>, <em>y</em>) = <em>x</em></li>
+      <li>
+        <em>x</em>Sub<sub><em>k</em> + 1</sub>(<em>v</em>, <em>y</em>) = [<em>x</em>Sub<sub><em>k</em></sub>(<em>v</em>, <em>y</em>)]Su ([<em>k</em>Pl <em>v</em>, <em>x</em>], <em>y</em>) [<a href="#f27">27</a>, <a href="#f28">28</a>]
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f31">
+    31. <span class="formula"><em>x</em>Sub(<em>v</em>, <em>y</em>)</span> | Substitute all free <em>v</em>’s with <em>y</em>.
+    <ul>
+      <li><em>x</em>Sub(<em>v</em>, <em>y</em>) = <em>x</em>Sub<sub>T(<em>v</em>, <em>x</em>)</sub>(<em>v</em>, <em>y</em>) [<a href="#29">29</a>, <a href="#30">30</a>]</li>
+    </ul>
+  </div>
+
+  <p>We now have an arithmetic formula that allows us to take the Gödel numbers for a formula, a variable, and a string and get a new number, which will be the Gödel number for that same formula, except that everywhere where the variable was free in the formula it is replaced with the string. This will become very important as it will allow us to make every variable in a formula quantified, which we recall is necessary for assigning a truth value to a statement.</p>
+
+  <p>We will now define two formulae that will help us define the axioms arithmetically. In [<a href="#f32">32</a>] we will actually define four formulae in one go, which will use our previously defined formulae for negation, disjunction, and generalization [<a href="#f13">13</a>, <a href="#f14">14</a>, <a href="#f15">15</a>] to make formulae representing implication, conjunction, logical equivalence, and the existential qualifier. These will help in defining the axioms. In [<a href="#f33">33</a>] we will define a formula that represents type-lifting, where the type of every variable in a formula is raised by the same amount. The only use of this will be to define <a href="#extensionality">the Axiom of Extensionality</a> in [<a href="#f41">41</a>].</p>
+
+  <div class="formRule" id="f32">
+    32. Implication, conjunction, logical equivalence, and existence, respectively.
+    <ul>
+      <li><span class="formula"><em>x</em>Imp <em>y</em></span> = [Neg(<em>x</em>)]Dis <em>y</em> [<a href="#f13">13</a>, <a href="#f14">14</a>]</li>
+      <li><span class="formula"><em>x</em>Con <em>y</em></span> = Neg([Neg(<em>x</em>)]Dis [Neg(<em>y</em>)])</li>
+      <li><span class="formula"><em>x</em>Equ <em>y</em></span> = (<em>x</em>Imp <em>y</em>)Con (<em>y</em>Imp <em>x</em>) [<a href="#f32">32</a>]</li>
+      <li><span class="formula"><em>v</em>Ex <em>y</em></span> = Neg(<em>v</em>Gen [Neg(<em>y</em>)])</li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f33">
+    33. <span class="formula"><em>n</em>Tl <em>x</em></span> | <em>n<sup>th</sup></em> type-lift of <em>x</em>.
+    <ul>
+      <li>
+        smallest <em>y</em> <span class="bound">≤ <em>x</em><sup>(<em>x<sup>n</sup></em>)</sup></span> such that
+        <ul>
+          For all <em>k</em> ≤ <em>l</em>(<em>x</em>) [<a href="#f7">7</a>]
+          <ul>
+            <li><em>k</em>Trm <em>x</em> ≤ 13 and <em>k</em>Trm <em>y</em> = <em>k</em>Trm <em>x</em> [<a href="#f6">6</a>], or</li>
+            <li><em>k</em>Trm <em>x</em> > 13 and <em>k</em>Trm <em>y</em> = (<em>k</em>Trm <em>x</em>)·(1Pr [<em>x</em>Trm <em>x</em>])<sup><em>n</em></sup> [<a href="#f3">3</a>]</li>
+          </ul>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <p>Now that we have these formulae we will be able to define arithmetic formulae that assess whether a number is the Gödel number for an axiom. This will be accomplished in [<a href="#f42">42</a>].</p>
+
+  <p><a href="#peano">The axioms from Peano arithmetic</a> are statements that only make use of our basic symbols<sup class="ref" id="r16">*</sup> and as such have Gödel numbers of their own. So we will define α<sub>1</sub>, α<sub>2</sub>, and α<sub>3</sub> to be the Gödel numbers for axioms I - 1, 2, and 3 respectively.</p>
+
+  <aside id="n16">We gave an abbreviation of them using other symbols, but they can easily be rewritten.</aside>
+
+  <div class="formRule" id="f34">
+    34. <span class="formula">Ax<sub>I</sub>(<em>x</em>)</span> | <em>x</em> is an axiom of Peano Arithmetic.
+    <ul>
+      <li><em>x</em> = α<sub>1</sub>, or</li>
+      <li><em>x</em> = α<sub>2</sub>, or</li>
+      <li><em>x</em> = α<sub>3</sub></li>
+    </ul>
+  </div>
+
+  <p>The axioms of <a href="#propositional">propositional logic</a> and <a href="#predicate">predicate logic</a> and the <a href="#comprehension">axiom of comprehension</a> are not written using our basic symbols, but rather are general forms of statements involving formulae and variables. So instead of seeing, as in [<a href="#f34">34</a>], whether or not the Gödel number for a formula equals the Gödel number of an axiom, we will have to determine whether the formula is of a certain form. In [<a href="#f35">35</a>] we will give an explicit definition of such a test for axiom II - 1, but won’t do so for axioms II - 2, 3, and 4, as it will be easy to see how they are constructed given the formula in [<a href="#f35">35</a>]. In [<a href="#f36">36</a>] we will test whether a formula comes from the axioms for propositional logic.</p>
+
+  <div class="formRule" id="f35">
+    35. <span class="formula">Ax<sub>II-1</sub>(<em>x</em>)</span> | <em>x</em> is derived from the first axiom of propositional logic.
+    <ul>
+      <li>
+        ∃<em>y</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li>Form(<em>y</em>) [<a href="#f23">23</a>]</li>
+          <li><em>x</em> = (<em>y</em>Dis <em>y</em>)Imp <em>y</em><sup class="ref" id="r17">*</sup> [<a href="#f32">32</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <aside id="n17">This line would change for Ax<sub>II-2</sub>(<em>x</em>), Ax<sub>II-3</sub>(<em>x</em>), Ax<sub>II-4</sub>(<em>x</em>).</aside>
+
+  <div class="formRule" id="f36">
+    36. <span class="formula">Ax<sub>II</sub>(<em>x</em>)</span> | <em>x</em> is derived from an axiom of propositional logic.
+    <ul>
+      <li>Ax<sub>II-1</sub>(<em>x</em>) [<a href="#f35">35</a>], or</li>
+      <li>Ax<sub>II-2</sub>(<em>x</em>), or</li>
+      <li>Ax<sub>II-3</sub>(<em>x</em>), or</li>
+      <li>Ax<sub>II-4</sub>(<em>x</em>)</li>
+    </ul>
+  </div>
+
+  <p>For the axioms of propositional logic we only needed to check that the things we were substituting were formulae. Predicate logic allows us to talk about variables, and as such we will need to develop formulae that allow us to test for certain constraints on variables.</p>
+
+  <p>The first axiom for predicate logic is <em>v</em> ∀ <em>a</em> ⇒ <em>a</em> Sub(<em>v</em>, <em>b</em>). In this <em>a</em> can be any formula, <em>v</em> any variable, and <em>b</em> any variable of the same type as <em>v</em> that does not contain a variable bound in <em>a</em> where <em>v</em> is free. It makes sense why <em>b</em> must be the same type as <em>v</em>, but what does the second qualification mean?</p>
+
+  <p>Recall that a term of first type is something of the form 0, <em>ss</em>...<em>s</em>0, <em>x</em><sub>1</sub>, or <em>ss</em>...<em>sx</em><sub>1</sub>. So consider the case when <em>v</em> is a variable of first type, <em>a</em> is the statement “∃<em>y</em><sub>1</sub>(<em>v</em> = <em>y</em><sub>1</sub>)” and <em>b</em> is the variable of first type “<em>sy</em><sub>1</sub>”. Upon substituting <em>v</em> for <em>b</em>, as this axiom suggests we can do, we get “∃<em>y</em><sub>1</sub>(<em>sy</em><sub>1</sub> = <em>y</em><sub>1</sub>)”, which is plainly false. The reason for this is that <em>b</em> contains a variable, <em>y</em><sub>1</sub>, that is bound in <em>a</em>, and upon substitution with <em>v</em> the quantification of <em>y</em><sub>1</sub> in <em>a</em> applies to the thing being substituted, which it shouldn’t. So in [<a href="#f37">37</a>] we will develop a formula that tests for this condition.</p>
+
+  <p>Once this is done, we will develop formulae for <a href="#predicate">the axioms of predicate logic</a> in [<a href="#f38">38</a>] and [<a href="#f39">39</a>].</p>
+
+  <div class="formRule" id="f37">
+    37. <span class="formula">Q(<em>z</em>, <em>y</em>, <em>v</em>)</span> | <em>z</em> has no variables bound in <em>y</em> at a position where <em>v</em> is free.
+    <ul>
+      <li>
+        ∃<em>n</em> <span class="bound">≤ l(<em>y</em>)</span>, ∃<em>m</em> <span class="bound">≤ <em>l</em>(<em>z</em>)</span>, ∃<em>w</em> <span class="bound">≤ <em>z</em></span> such that [<a href="#f7">7</a>]
+        <ul>
+          <li><em>w</em> = <em>m</em>Trm <em>z</em> [<a href="#f6">6</a>]</li>
+          <li><em>w</em>Bnd <em>n</em>, <em>y</em> [<a href="#f24">24</a>]</li>
+          <li><em>v</em>Fr <em>n</em>, <em>y</em> [<a href="#f25">25</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f38">
+    38. <span class="formula">Ax<sub>III-1</sub>(<em>x</em>)</span> | <em>x</em> is derived from the first axiom of predicate logic.
+    <ul>
+      <li>
+        ∃<em>v</em>, <em>y</em>, <em>z</em>, <em>n</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>n</em>Var <em>v</em> [<a href="#f11">11</a>]</li>
+          <li>Typ<sub><em>n</em></sub>(<em>z</em>) [<a href="#f19">19</a>]</li>
+          <li>Form(<em>y</em>) [<a href="#f23">23</a>]</li>
+          <li>Q(<em>z</em>, <em>y</em>, <em>v</em>) [<a href="#f37">37</a>]</li>
+          <li><em>x</em> = (<em>v</em>Gen <em>y</em>)Imp [<em>y</em>Sub(<em>v</em>, <em>z</em>)] [<a href="#f15">15</a>, <a href="#f31">31</a>, <a href="#f32">32</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f39">
+    39. <span class="formula">Ax<sub>III-2</sub>(<em>x</em>)</span> | <em>x</em> is derived from the second axiom of predicate logic.
+    <ul>
+      <li>
+        ∃<em>v</em>, <em>q</em>, <em>p</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li>Var(<em>v</em>) [<a href="#f12">12</a>]</li>
+          <li>Form(<em>p</em>) [<a href="#f23">23</a>]</li>
+          <li><em>v</em>Free <em>p</em> [<a href="#f26">26</a>]</li>
+          <li>Form(<em>q</em>)</li>
+          <li><em>x</em> = [<em>v</em>Gen (<em>p</em>Dis <em>q</em>)]Imp [<em>p</em>Dis (<em>v</em>Gen <em>q</em>)] [<a href="#f32">32</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <p>We now have means to test whether a formula is derived from the axioms of predicate logic. We will now develop the same for <a href="#comprehension">the axiom of comprehension</a>.</p>
+
+  <div class="formRule" id="f40">
+    40 <span class="formula">Ax<sub>IV</sub>(<em>x</em>)</span> | <em>x</em> is derived from the axiom of comprehension.
+    <ul>
+      <li>
+        ∃<em>u</em>, <em>v</em>, <em>y</em>, <em>n</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li><em>n</em>Var <em>v</em> [<a href="#f11">11</a>]</li>
+          <li>(<em>n</em> + 1)Var <em>u</em></li>
+          <li><em>u</em>Free <em>y</em> [<a href="#f26">26</a>]</li>
+          <li>Form(<em>y</em>) [<a href="#f23">23</a>]</li>
+          <li><em>x</em> = <em>u</em>Ex [<em>v</em>Gen ([R(<em>u</em>) ∗ P(R(<em>v</em>))]Equ <em>y</em>)] [<a href="#f9">9</a>, <a href="#f10">10</a>, <a href="#f15">15</a>, <a href="#f32">32</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <p>The axiom of extensionality is, like the axioms for Peano Arithmetic, written in terms of our basic symbols, and so has a Gödel number, but this axiom applies to any type-lift of itself, which is when the type of every variable is raised by the same amount. Thus, we define α<sub>4</sub> to be the Gödel number for the axiom of extensionality at the lowest type (<a href="#extensionality">see its definition above</a>), and will test whether a formula is a type-lift of this formula (or this formula itself), in [<a href="#f41">41</a>].</p>
+
+  <div class="formRule" id="f41">
+    41. <span class="formula">Ax<sub>V</sub>(<em>x</em>)</span> | <em>x</em> is a type lift of the axiom of extensionality.
+    <ul>
+      <li>
+        ∃<em>n</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <em>x</em> = <em>n</em>Tl α<sub>4</sub> [<a href="#f33">33</a>]
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f42">
+    42. <span class="formula">Ax(<em>x</em>)</span> - <em>x</em> is derived from an axiom.
+    <ul>
+      <li>Ax<sub>I</sub>(<em>x</em>) [<a href="#f34">34</a>], or</li>
+      <li>Ax<sub>II</sub>(<em>x</em>) [<a href="#f36">36</a>], or</li>
+      <li>Ax<sub>III-1</sub>(<em>x</em>) [<a href="#f38">38</a>], or</li>
+      <li>Ax<sub>III-2</sub>(<em>x</em>) [<a href="#f39">39</a>], or</li>
+      <li>Ax<sub>IV</sub>(<em>x</em>) [<a href="#f40">40</a>], or</li>
+      <li>Ax<sub>V</sub>(<em>x</em>) [<a href="#f41">41</a>]</li>
+    </ul>
+  </div>
+
+  <p>We now have a means to test whether a formula is derived from an axiom. Recall that valid proofs are those sequences of statements that include the axioms and are closed with respect to the relation <em>immediate consequence of</em>. In [<a href="#f43">43</a>] we will develop a means to test whether a formula is an immediate consequence of two other formulae, then in [<a href="#f44">44</a>] we will test whether a string is closed with respect to this relation (making it a proof). In a proof of this nature what is proved is the last formula it comprises, so in [<a href="#f45">45</a>] we will finally be able to test if <em>x</em> is a proof of <em>y</em> by testing whether <em>y</em> is the last formula that constitutes the proof <em>x</em>.</p>
+
+  <div class="formRule" id="f43">
+    43. <span class="formula"><em>x</em>IC(<em>y</em>, <em>z</em>)</span> | <em>x</em> is an immediate consequence of <em>y</em> and <em>z</em>.
+    <ul>
+      <li><em>y</em> = <em>z</em>Imp <em>x</em> [<a href="#f32">32</a>], or</li>
+      <li>
+        ∃<em>v</em> <span class="bound">≤ <em>x</em></span> such that
+        <ul>
+          <li>Var(<em>v</em>) [<a href="#f12">12</a>]</li>
+          <li><em>x</em> = <em>v</em>Gen <em>y</em> [<a href="#f15">15</a>]</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f44">
+    44. <span class="formula">Prf(<em>x</em>)</span> | <em>x</em> is a valid proof.
+    <ul>
+      <li>
+        For all <em>n</em> <span class="bound">≤ <em>x</em></span>
+        <ul>
+          <li>Ax(<em>n</em>Trm <em>x</em>) [<a href="#f6">6</a>, <a href="#f42">42</a>], or</li>
+          <li>
+            ∃<em>p</em>, <em>q</em> ≤ <em>n</em> such that
+            <ul>
+              <li>(<em>n</em>Trm <em>x</em>)IC(<em>p</em>Trm <em>x</em>, <em>q</em>Trm <em>x</em>) [<a href="#f43">43</a>]</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="formRule" id="f45">
+    45. <span class="formula"><em>x</em>Dem <em>y</em></span> | <em>x</em> is a proof of <em>y</em> (<em>x</em> demonstrates <em>y</em>).
+    <ul>
+      <li>Prf(<em>x</em>) [<a href="#f44">44</a>]</li>
+      <li>[<em>l</em>(<em>x</em>)]Trm <em>x</em> = <em>y</em> [<a href="#f6">6</a>, <a href="#f7">7</a>]</li>
+    </ul>
+  </div>
+
+  <p>In <em>x</em>Dem <em>y</em> we have a primitive recursive arithmetic formula between <em>x</em> and <em>y</em> that, if satisfied, means that Γ<sup>-1</sup>(<em>x</em>) is a proof of Γ<sup>-1</sup>(<em>y</em>). What this means is that there is a statement within our system P that can say whether or not two other strings constitute a valid proof within P. In the next section we will use this to create an undecidable statement.</p>
+
+  <h4 id="sec2-2-4">2.2.4. Constructing the Undecidable</h4>
+
+  <p>We will now construct a statement that is undecidable within P.</p>
+
+  <p>Consider the statement</p>
+
+  <div class="center">
+    ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem <em>y</em><sub>1</sub>)
+  </div>
+
+  <p>This is a statement claiming that there does not exist an <em>x</em><sub>1</sub> such that Γ<sup>-1</sup>(<em>x</em><sub>1</sub>) is a proof of Γ<sup>-1</sup>(<em>y</em><sub>1</sub>) (see [<a href="#f45">45</a>]), or in other words, that Γ<sup>-1</sup>(<em>y</em><sub>1</sub>) is not provable.</p>
+
+  <p>We now consider the statement</p>
+
+  <div class="center">
+    <em>p</em> = ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem [<em>y</em><sub>1</sub>Sub(19, <em>y</em><sub>1</sub>)]).
+  </div>
+
+  <p>Which states that <em>y</em><sub>1</sub>Sub(19, <em>y</em><sub>1</sub>) is not provable<sup class="ref" id="r18">*</sup>. We recall (see [<a href="#f31">31</a>]) that <em>y</em><sub>1</sub>Sub(19, <em>y</em><sub>1</sub>) represents going into Γ<sup>-1</sup>(<em>y</em><sub>1</sub>) and wherever Γ<sup>-1</sup>(19) (<a href="#sec2-2-2">see Gödel Numbering</a>) is free substituting <em>y</em><sub>1</sub>. It is important to note that <em>y</em><sub>1</sub> is being treated as a Gödel number in its first appearance and a “normal” number in the second. That is, we are interested in the statement <em>y</em><sub>1</sub> represents in one instance, but only its numerical value in the other. Why we would want to do this may not be clear as of yet, but already we see the interplay between the arithmetic and the interpretation of the arithmetic.</p>
+
+  <aside id="n18">Strictly speaking it states that Γ<sup>-1</sup>(<em>y</em><sub>1</sub>Sub(19, <em>y</em><sub>1</sub>)) is not provable, but we will do away with this notation when it is unambiguous as to whether we are talking about a statement or the Gödel number for that statement.</aside>
+
+  <p>As of now <em>p</em> cannot be assigned a truth value, as it has a free variable, <em>y</em><sub>1</sub>, but <em>p</em> is nonetheless well-formed, and as such has a Gödel number, which we will call <em>n</em>, so that Γ(<em>p</em>) = <em>n</em>.</p>
+
+  <p>We now consider the statement</p>
+
+  <div class="center">
+    <em>r</em> = ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem [<em>n</em>Sub(19, <em>n</em>)]).
+  </div>
+
+  <p>Which states that <em>n</em>Sub(19, <em>n</em>) is not provable. In this case there are no free variables, and as such <em>r</em> should have a truth value. To determine what this truth value is, we must examine <em>n</em>Sub(19, <em>n</em>) more closely.</p>
+
+  <p>The statement <em>n</em>Sub(19, <em>n</em>) represents going into Γ<sup>-1</sup>(<em>n</em>), and wherever Γ<sup>-1</sup>(19) is free, substituting <em>n</em>. So what is Γ<sup>-1</sup>(<em>n</em>)? We defined <em>n</em> such that Γ(<em>p</em>) = <em>n</em>, so Γ<sup>-1</sup>(<em>n</em>) = <em>p</em>. Thus, we will go into <em>p</em> = ¬∃<em>x</em><sub>1</sub> (<em>x</em><sub>1</sub>Dem [<em>y</em><sub>1</sub> Sub(19, <em>y</em><sub>1</sub>)]) and wherever Γ<sup>-1</sup>(19) is free replace it with <em>n</em>. We know Γ<sup>-1</sup>(19) = <em>y</em><sub>1</sub>, so going into ¬∃<em>x</em><sub>1</sub> (<em>x</em><sub>1</sub> Dem [<em>y</em><sub>1</sub> Sub(19, <em>y</em><sub>1</sub> )]) and replacing free instances of <em>y</em><sub>1</sub> with <em>n</em> we get ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem [<em>n</em>Sub(19, <em>n</em>)]) as the meaning of <em>n</em>Sub(19, <em>n</em>). But recall that <em>r</em> = ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem [<em>n</em>Sub(19, <em>n</em>)]), so we can say that</p>
+
+  <div class="center">
+    <em>r</em> = ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem [<em>n</em>Sub(19, <em>n</em>)]) = ¬∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem <em>r</em>).
+  </div>
+
+  <p>Or in other words, <em>r</em> says that <em>r</em> is not provable.</p>
+
+  <p>This is a truly remarkable statement. We have uncovered a way to form a statement in P that says <em>of itself</em> that it is not provable in P. We now look to see if this is indeed the case. Is it provable? And if not, is its negation provable?</p>
+
+  <p>If <em>r</em> is provable, then there exists a proof of it, so we can prove that ∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem <em>r</em>). But that is in fact the negation of <em>r</em>, so if <em>r</em> is provable, then so is ¬<em>r</em>. If P is consistent then this cannot be the case.</p>
+
+  <p>If ¬<em>r</em> is provable, then ∃<em>x</em><sub>1</sub>(<em>x</em><sub>1</sub>Dem <em>r</em>) is provable (this being the negation of <em>r</em>), which would mean yet again that there exists a proof of <em>r</em>. So if ¬<em>r</em> is provable then <em>r</em> is provable. Again, this cannot be the case if P is consistent.</p>
+
+  <p>We can thus conclude that if P is consistent then neither <em>r</em> nor ¬<em>r</em> is provable, meaning P is incomplete. This concludes the proof of Gödel’s first incompleteness theorem.</p>
+
+  <h4 id="sec2-2-5">2.2.5. A Problem with Consistency</h4>
+
+  <p>We have shown that if P is consistent then it is incomplete. More specifically, we have shown that consistency implies <em>r</em>, as <em>r</em> is the statement that <em>r</em> cannot be proven, which is indeed the case if P is consistent. We can represent this relation succinctly as</p>
+
+  <div class="center">
+    C ⇒ <em>r</em>
+  </div>
+
+  <p>Where C is the statement claiming the consistency of P.</p>
+
+  <p>We then come to another remarkable conclusion. Because <em>r</em> follows from the consistency of P, if there exists a proof of the consistency of P within P then <em>r</em> would be provable. But we have shown above that there cannot exist a proof of <em>r</em>, so likewise there cannot exist a proof of the consistency of P within P. So not only is P incomplete, but it is incapable of proving its own consistency. This is Gödel’s Second Incompleteness Theorem.</p>
+
+  <p>This fact contrasts arithmetic systems such as propositional and predicate logic, both of which are capable of an internal proof of consistency. The consistency of P can, however, be proven by auxiliary means, and indeed Gentzen proved its consistency using transfinite induction in 1936, but any such proof will necessarily rely on assumptions that go beyond those of arithmetic, so if the consistency of arithmetic is in doubt, a system capable of proving its consistency must share similar doubts.</p>
+
+  <footer><a href="./part3.html">Closing Thoughts ></a></footer>
+
+  <script>
+    for (let i = 1; i <= 19; i++) {
+      document.getElementById(`r${i}`).addEventListener('mouseover', () => {
+        document.getElementById(`n${i}`).style.color = 'var(--othertext)';
+      })
+
+      document.getElementById(`r${i}`).addEventListener('mouseleave', () => {
+        document.getElementById(`n${i}`).style.color = 'var(--background)';
+      })
+    }
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

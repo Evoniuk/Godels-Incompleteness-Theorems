@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godel's Incompleteness Theorems</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav>
+    <ol>
+      <li>
+        <a href="#sec1">A History and a Result</a>
+        <ol>
+          <li><a href="#sec1-1">The Axiomatic System is Developed</a></li>
+          <li><a href="#sec1-2">The Odd One Out</a></li>
+          <li><a href="#sec1-3">An Alternative Geometry</a></li>
+          <li><a href="#sec1-4">A Bigger Problem</a></li>
+          <li>
+            <a href="#sec1-5">A New Foundation for Mathematics</a>
+            <ol>
+              <li><a href="#sec1-5-1">Arithmetic, Set Theory, and Logic</a></li>
+            </ol>
+          </li>
+          <li><a href="#sec1-6">A Crisis in the Foundation</a></li>
+          <li><a href="#sec1-7">A New Theory of Sets</a></li>
+          <li><a href="#sec1-8">The Culmination of Mathematical History</a></li>
+          <li><a href="#sec1-9">The Result</a></li>
+        </ol>
+      </li>
+      <li>
+        <a href="./part2.html#sec2">The Proof</a>
+        <ol>
+          <li>
+            <a href="./part2.html#sec2-1">Necessary Considerations</a>
+            <ol>
+              <li><a href="./part2.html#sec2-1-1">Logic</a></li>
+              <li><a href="./part2.html#sec2-1-2">Primitive Recursion</a></li>
+            </ol>
+          </li>
+          <li>
+            <a href="./part2.html#sec2-2">The Proof</a>
+            <ol>
+              <li><a href="./part2.html#sec2-2-1">Defining the System P</a></li>
+              <li><a href="./part2.html#sec2-2-2">Gödel Numbering</a></li>
+              <li><a href="./part2.html#sec2-2-3">A Primitive Recursive Series</a></li>
+              <li><a href="./part2.html#sec2-2-4">Constructing the Undecidable</a></li>
+              <li><a href="./part2.html#sec2-2-5">A Problem With Consistency</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>
+        <a href="./part3.html#sec3">Closing Thoughts</a>
+        <ol>
+          <li><a href="./part3.html#sec3-1">Human Reasoning</a></li>
+          <li><a href="./part3.html#sec3-2">Philosophical Import</a></li>
+          <li><a href="./part3.html#sec3-3">What is Mathematics?</a></li>
+        </ol>
+      </li>
+      <li><a href="./part4.html#sec4">Bibliography</a></li>
+    </ol>
+  </nav>
+
+  <h1>Gödel's Incompleteness Theorems</h1>
+
+  <div class="epigraph">
+    <span class="poem">
+      I trust in Nature for the stable laws          <br>
+      Of beauty and utility. Spring shall plant      <br>
+      And Autumn garner to the end of time.          <br>
+      I trust in God, — the right shall be the right <br>
+      And other than the wrong, while he endures.    <br>
+      I trust in my own soul, that can perceive      <br>
+      The outward and the inward
+    </span>
+    <div><em>A Soul's Tragedy</em> - Robert Browning</div>
+  </div>
+
+  <h2 id="sec1">1. A History and a Result</h2>
+
+  <p>It has been assumed, by mathematicians and laymen alike, that if something were true it could be proven. In 1931 Kurt Gödel showed this assumption to be mistaken. Gödel first published this result in a short paper titled <em>“On Formally Undecidable Propositions of Principia Mathematica and Related Systems”</em> as a response to questions that had arose about uncertainties in the foundations of mathematics. Gödel showed that such uncertainties in mathematics are inexorable and in so doing forever changed perceptions of mathematics, reasoning, and philosophy.</p>
+
+  <h3 id="sec1-1">1.1. The Axiomatic System is Developed</h3>
+
+  <p>To understand what it was exactly that Gödel proved we will first discuss the general development of mathematics until that time when Gödel published his result. As with most histories of math, we will start with Euclid, as it was he who made math what it is.</p>
+
+  <p>Euclid wrote <em>The Elements</em> in around 300 B.C. and with it established math as a deductive, as opposed to empirical, discipline. This meant hypotheses were not evaluated by their consistency with observations, as is the case with science, but rather by a demonstration of their inevitability when certain basic assumptions are made, these basic assumptions being called axioms. Euclid gave five axioms to describe geometry, and with them proved results of incredible complexity.</p>
+
+  <p>It is difficult to overstate the impact this book has had on thinkers of all kinds throughout history; soon after it was first written it was copied and recopied, and occasionally experienced additions. In the sixth century Isidore of Miletus, the architect of the Hagia Sophia and compiler of the works of Archimedes, for example, wrote a Book XV<sup class="ref" id="r1">*</sup>. In 1482 it became one of the earliest books to be put into print, and has since enjoyed over 1000 editions, second only to the Bible. Abraham Lincoln even cited it as the means by which he learned to be a lawyer, saying</p>
+
+  <aside id="n1"><em>The Elements</em> is a collection of 13 books.</aside>
+
+  <blockquote>
+    At last I said, ‘Lincoln, you never can make a lawyer if you do not understand what demonstrate means’; and I left my situation in Springfield, went home to my father’s house, and stayed there till I could give any proposition in the six books of Euclid at sight. I then found out what demonstrate means, and went back to my law studies.
+  </blockquote>
+
+  <p>In a private, unpublished note from 1854, Lincoln even used the principles of deductive reasoning to offer a challenge to slavery.</p>
+
+  <blockquote>
+    If A. can prove, however conclusively, that he may, of right, enslave B. — why may not B. snatch the same argument, and prove equally, that he may enslave A? – You say A. is white, and B. is black. It is color, then; the lighter, having the right to enslave the darker? Take care. By this rule, you are to be slave to the first man you meet, with a fairer skin than your own. You do not mean color exactly? – You mean the whites are intellectually the superiors of the blacks, and, therefore have the right to enslave them? Take care again. By this rule, you are to be slave to the first man you meet, with an intellect superior to your own. But, say you, it is a question of interest; and, if you can make it your interest, you have the right to enslave another. Very well. And if he can make it his interest, he has the right to enslave you.
+  </blockquote>
+
+  <p><em>The Elements</em> has never gone out of print, but starting in the 20th century the popularity it had enjoyed for millenia began to wane, ceasing to be a standard text for all educated people. To understand why, we need to look at the last axiom Euclid employed.</p>
+
+  <h3 id="sec1-2">1.2. The Odd One Out</h3>
+
+  <p>There are few sentences that have inspired as much intellectual activity as this:</p>
+
+  <blockquote>
+    If a line segment intersects two straight lines forming two interior angles on the same side that sum to less than two right angles, then the two lines, if extended indefinitely, meet on that side on which the angles sum to less than two right angles.
+  </blockquote>
+
+  <p>At first glance it seems rather inaesthetic and unappealing. It tends to stay that way for subsequent glances as well. Yet this is Euclid’s fifth axiom nonetheless, often called the Parallel Postulate. Other axioms Euclid employs include such things as the idea that all right angles are equal, and that two points may be connected by a line. This axiom by comparison is lengthy and unwieldy, and so it became the wish of countless mathematicians to prove it as a consequence of the other axioms, relegating it to the status of a mere theorem.</p>
+
+  <p>Some suggested simply throwing the postulate out. In his commentary on The Elements Proclus remarks</p>
+
+  <blockquote>
+    This [fifth postulate] ought even to be struck out of the Postulates altogether; for it is a theorem involving many difficulties which Ptolemy, in a certain book, set himself to solve, and it requires for the demonstration of it a number of definitions as well as theorems.
+  </blockquote>
+
+  <p>Proclus mentions here the work of Ptolemy, who, in the second century, sought to prove the parallel postulate from the others. And he did. The only problem was that he unwittingly assumed the Parallel Postulate in his proof of the Parallel Postulate, falling into circular reasoning. In his “proof” Proclus assumed that two lines that are parallel always maintain the the same distance between them, but this assumption is in fact equivalent to the Parallel Postulate. This assumption implies that given a line and a point not on that line there exists exactly one line through the given point parallel to the given line, and this formulation of the Parallel Axiom is known as Playfair’s Axiom.</p>
+
+  <p>A more novel approach was given over a thousand years later in 1663 by John Wallis, who proved the Parallel Postulate using the assumption that for every figure there exists a similar one at every size. This assumption, as natural as it is, is also, in fact, equivalent to the parallel postulate.</p>
+
+  <p>In 1733 Giovanni Saccheri made what has become the most famous attempt in his book Euclid Freed of Every Flaw, which purported to prove the Parallel Postulate from the other axioms. He attempted to do so by contradiction, assuming the negation of the Parallel Postulate as an axiom and trying to find an inconsistency. To do this he considered the two alternatives to Playfair’s Axiom; that given a point and line there exist A, no parallels, or B, multiple. If no parallels exist then it can be shown that lines can only ever be finite, which contradicts Euclid’s second axiom, which states that lines can be extended indefinitely, so Saccheri had success in this direction. If, however, it was assumed that there exist multiple lines through a given point parallel to a given line, then no contradiction can in fact be found. However, there are many counterintuitive results, one of which is the fact that a quadrilateral may have three right angles and one acute angle, to which Saccheri reacted by saying</p>
+
+  <blockquote>
+    The hypothesis of the acute angle is absolutely false because it is repugnant to the nature of straight lines.<sup class="ref" id="r2">*</sup>
+  </blockquote>
+
+  <aside id="n2">It has been claimed that Saccheri, a highly skilled logician, did not actually hold this view but rather wanted to avoid criticism.</aside>
+
+  <p>And thusly concluded his proof.</p>
+
+  <p>The reason Saccheri’s treatment has enjoyed its popularity (some may say infamy) is that the two alternatives to Playfair’s Axiom actually give rise to two different entirely consistent types of geometry, and many of Saccheri’s results are now theorems in these alternatives.</p>
+
+  <h3 id="sec1-3">1.3. An Alternative Geometry</h3>
+
+  <p>The first person to publish on an alternative to Euclidean Geometry, while acknowledging the fact that there were indeed alternatives, was Nikolai Lobachevsky. In 1840, in <em>Geometrical Investigations on the Theory of Parallels</em>, he wrote</p>
+
+  <blockquote>
+    In geometry I find certain imperfections which I hold to be the reason why this science, apart from transition into analytics, can as yet make no advance from that state in which it has come to us from Euclid. As belonging to these imperfections, I consider the obscurity in the fundamental concepts of the geometrical magnitudes and in the manner and method of representing the measuring of these magnitudes, and finally the momentous gap in the theory of parallels, to fill which all efforts of mathematicians have been so far in vain. [...] Yet I am of the opinion that the Theory of Parallels should not lose its claim to the attention of geometers, and therefore I aim to give here the substance of my investigations...
+  </blockquote>
+
+  <p>He goes on to strictly define the properties of a straight line, which, with its many connotations, lead to many unnamed assumptions being used by other mathematicians. In this paper and others Lobachevsky adopted the assumption that for each line and point there exist multiple parallels, and with it gave rise to what is now called hyperbolic geometry, or in Russia, Lobachevskian geometry.</p>
+
+  <h3 id="sec1-4">1.4. A Bigger Problem</h3>
+
+  <p>What Lobachevsky’s treatment of geometry showed was that Euclid’s fifth axiom was independent of the rest: that the first four axioms were not sufficient to prove or disprove certain statements in geometry. This quality is called <em>incompleteness</em>. We call a set of axioms <em>incomplete</em> if there exists a well-formed statement without free variables <em>p</em> such that neither <em>p</em> nor <em>not p</em> is provable from the axioms.</p>
+
+  <p>By well-formed what is meant is simply that the statement makes sense within the system. So within geometry a well-formed statement might be “the points <em>a</em> and <em>b</em> are connected by the line <em>x</em>”, or “the lines <em>x</em> and <em>y</em> intersect at a right angle”. Statements that are not well-formed are statements like “right angle the line <em>x</em> with the point <em>a</em>”, because even though all the words the statement comprises belong to geometry, this combination is nonsensical, or “1 plus 1 equals 2”, as this, despite being true, is not a statement within geometry, or “bacon”, because bacon, for better or worse, is not within the scope of geometry.</p>
+
+  <p>But of course, even the examples of well-formed statements above are not decidable, as their truth of falsity depends on what values the variables take. So while “the points <em>a</em> and <em>b</em> are connected by the line <em>x</em>” is well-formed, it cannot be proven or disproven, because the truth value of this statement depends upon what exactly <em>a</em>, <em>b</em>, and <em>x</em> are. More will be said on this matter later.</p>
+
+  <p>What came to the attention of many mathematicians in the late 1800s was the fact that, even with the fifth axiom, Euclid’s axioms were incomplete. To see why, let us consider all of Euclid’s axioms and his first proposition, the first thing that he proved with said axioms.</p>
+
+  <p>Euclid's axioms are as follows:</p>
+
+  <ol>
+    <li>To draw a line from any point to any point</li>
+    <li>To produce a finite line continuously</li>
+    <li>To describe a circle with any center and distance</li>
+    <li>That all right angles are equal</li>
+    <li>If a line segment intersects two straight lines forming two interior angles on the same side that sum to less than two right angles, then the two lines, if extended indefinitely, meet on that side on which the angles sum to less than two right angles.</li>
+  </ol>
+
+  <p>(We can see why the fifth was not favored.)</p>
+
+  <p>With these we will now go through Euclid’s first proposition, where he proposed the ability to construct an equilateral triangle from a finite straight line.</p>
+
+  <p>Given a finite straight line, which we will call AB (points A and B being the endpoints of the line), we can, by axiom 3, form a circle with center A and distance AB, and likewise form a circle with center B and distance BA. The point at which these circles intersect (it may be either point) we will call C. By axiom 1 we can form a line between A and C and between B and C. We have thus formed an equilateral triangle ABC, completing the proof.</p>
+
+  <p>But there’s a problem here. We don’t know whether or not the circles we constructed intersect. In fact, the only axiom that deals with intersection is the fifth, which was both never invoked and doesn't involve circles. We, as Ptolemy did, unwittingly made an assumption critical to proving what we already believed to be the case. Euclid’s passive assumptions are not obvious, and they are very natural, but they are assumptions nonetheless and in a rigorous treatment of geometry must be stated as such.</p>
+
+  <p>Rigor is what defines the modern mathematical approach. The reason Euclid fell out of fashion was because he was simply no longer rigorous enough for mathematicians in the late 1800s. Mathematicians needed to flesh out each and every assumption being made. A rigorous treatment of geometry was given in the book <em>Foundations of Geometry</em>, published by David Hilbert in 1899, which contained 21 axioms, filling in the gaps that Euclid had simply assumed. One of these axioms was later shown to be redundant and was removed in later editions.</p>
+
+  <h3 id="sec1-5">1.5. A New Foundation for Mathematics</h3>
+
+  <p>In the midst of all this change in the field of geometry there was a rather modest 2-page paper in number theory that was published in 1874 under the title <em>On a Property of the Collection of All Real Algebraic Numbers</em>. It was written by 29 year-old German mathematician Georg Cantor and it changed mathematics forever.</p>
+
+  <p>In this paper Cantor was merely re-proving a result first proved by Louisville, that there exist numbers that are not algebraic, what we now call transcendental numbers, in a more efficient way. The manner in which he did this was to identify that there were more numbers in an interval of real numbers than there were algebraic numbers. As Cantor said in his paper, “I have uncovered the essential difference between a so-called continuum and a set such as the set of all real algebraic numbers”.</p>
+
+  <p>For millenia paradoxes and problems with infinity perplexed thinkers. In his <em>Dialogue Concerning the Two Chief World Systems</em> Galileo writes two characters, Salviati and Simplicio, who are having a discussion of the infinite. Salviati is meant to represent Galileo, the correct view of the world, and Simplicio his rivals, the backward view of the world. In this discussion Salviati claims that “infinity and indivisibilty are in their very nature incomprehensible to us”, and declares that “we cannot speak of infinite quantities as being the one greater or less than or equal to another. To prove this I have in mind an argument”. His argument is that for every square number there exists a pair in the natural numbers (namely its square root), and that both are infinite, yet clearly there are fewer squares than naturals, so this is a contradiction. Thus we cannot compare infinities.</p>
+
+  <p>In <em>The Life and Opinions of Tristram Shandy, Gentleman</em>, the titular main character wonders if he would ever be able to complete his autobiography if he lived forever; it takes two days to write about one day, so surely he could never finish, yet any given point of his life would eventually be committed to paper.</p>
+
+  <p>Even Gauss “protest[ed] against the use of infinite magnitude... which is never permissible in mathematics”.</p>
+
+  <p>The problems surrounding infinity seemed intractable.</p>
+
+  <p>Yet they weren’t. In his short paper Cantor arrived at the heart of infinity, and discovered the “essential difference” between different infinities. The problem with previous approaches to distinguishing sizes of infinities, which rarely even considered the notion that there may be different sizes to begin with, was that they relied on methods applicable only to finite objects. To determine whether one finite quantity is larger than another we establish the size of each and then compare the sizes. What Cantor did was to reverse the order in which this procedure was carried out by comparing sets and subsequently evaluating their size.</p>
+
+  <p>Given two infinite sets we can say they are of equal size if there exists a function that maps each member of one to exactly one member of the other, and does so uniquely. Such a function is called a <em>bijection</em>. Cantor showed that there cannot exist a bijection between the set of algebraic numbers and the set of real numbers in a given interval. This was the first demonstration of the rather astounding fact that there are different sizes of infinity. Salviati, the correct view of the world, was incorrect.</p>
+
+  <p>This result invited vehement debate among mathematicians about the fundamental assumptions being made about their subject. Some mathematicians, like Leopold Kronecker and Henri Poincaré, were fierce opponents of this theory of sets, or set theory. Poincaré believed that “later generations will regard [Cantor’s] <em>Mengenlehre</em> as a disease”, while other mathematicians, like Richard Dedekind and David Hilbert, saw it as the means to tie together all of mathematics and contributed a great deal to the theory. It was ultimately the latter group that won out.</p>
+
+  <h4 id="sec1-5-1">1.5.1 Arithmetic, Set Theory, and Logic</h4>
+
+  <p>To understand how and why set theory became a foundation for math, it is important to understand a parallel development in arithmetic. Logician Bertrand Russell writes in his 1919 book <em>An Introduction to Mathematical Philosophy</em>,</p>
+
+  <blockquote>
+    All traditional pure mathematics, including analytical pure geometry, may be regarded as consisting wholly of propositions about the natural numbers. That is to say, the terms which occur can be defined by means of the natural numbers, and the propositions can be deduced from the propositions of the natural numbers - with the addition, in each case, of the ideas and propositions of pure logic.
+  </blockquote>
+
+  <p>Adding that this discovery was recent, but that “it had long been expected”. The discovery of this fact was recent because ancient mathematicians thought it to be foreclosed by the discovery of incommensurables, what we now call irrational numbers, two centuries prior to Euclid, in Pythagoras’ time. These numbers could not be defined as a ratio between natural numbers and thus it was thought they could not be defined at all by them, yet work by Dedekind showed that in fact all real numbers could be defined by the naturals.</p>
+
+  <p>Once the natural numbers were shown to be the basis of all of math, there was an aim to simplify them into as few primitive concepts as possible. A primitive concept is a concept that is only defined by its relation with other things, and not by explicit definition in itself. Because all definitions require other concepts, eventually there must always exist primitive concepts to start the actual development of theory. As Russell goes on to say, the work of defining the natural numbers in terms of very few primitive concepts was done by Peano, who “showed that the entire theory of the natural numbers could be derived from three primitive ideas and five primitive propositions in addition to those of pure logic.” The three primitive notions here identified were 0, <em>number</em>, and <em>successor</em>. The five primitive propositions are</p>
+
+  <ol>
+    <li>0 is a number.</li>
+    <li>The successor of a number is a number.</li>
+    <li>No two numbers have the same successor.</li>
+    <li>0 is not the successor of any number.</li>
+    <li>Any property that belongs to 0 and also the successor of any number that
+      has the property belongs to all numbers. (induction)</li>
+  </ol>
+
+  <p>However, <em>number</em> can be further defined, a fact realized and explicated by German logician Gottlob Frege in his 1884 book <em>The Foundations of Arithmetic</em>. In this work, Frege shows that comparing sizes of sets is a more primitive notion than actually enumerating the sizes of those sets. Thusly, he defines the <em>number</em> of a set as the set of all sets of equal size to it. So number in the general sense is anything that is the number for some set.</p>
+
+  <p>So <em>number</em> can be defined within the theory of sets. But what is a set? In <em>Contributions in Support of Transfinite Set Theory</em> Cantor describes sets as “...a gathering together into a whole of definite, distinct objects of our perception or of our thought”.</p>
+
+  <p>But Frege gave a more rigorous definition. He showed that any set can be described using a defining property (sometimes called an <em>intension</em>), such as the set of natural numbers, or the set of points on a circle, or the set of people living in London, and so a set can be thought of as a collection of things united by a common property. But there was a problem lurking in this unassuming assumption.</p>
+
+  <h3 id="sec1-6">1.6. A Crisis in the Foundation</h3>
+
+  <p>The problem was the natural assumption that any property may be used to define a set. This assumption was mistaken.</p>
+
+  <p>In 1901 Russell sent a letter to Frege to demonstrate this fact. He writes
+  </p>
+
+  <blockquote>
+    There is just one point where I have encountered a difficulty. You state that a function too, can act as the indeterminate element. This I formerly believed, but now this view seems doubtful to me because of the following contradiction. Let <em>w</em> be the predicate: to be a predicate that cannot be predicated of itself. Can <em>w</em> be predicated of itself? From each answer its opposite follows.
+  </blockquote>
+
+  <p>What Russell is asking of Frege is to consider a set whose defining property is “to have a property that excludes oneself”, or in other words, consider the set of sets that do not not contain themselves. There are many sets that do not contain themselves, but if we call the above set Λ, does Λ contain itself? If it does not, then it fulfills its defining property, and so must be contained within itself. If it does, then it fails its defining property, so must not be contained within itself. This is Russell’s Paradox, and it showed that a reformulation of set theory was needed, as allowing any property to define sets led to contradictions. The question was, what sort of restrictions could be placed on the construction of sets to avoid such contradictions? The difficulty was that, unlike the reformulation of geometry, which only required filling in some gaps and exploring new territory, the reformulation of set theory necessitated an entirely new conception of the most basic notion of the study.</p>
+
+  <p>Fortunately, the man who destroyed the foundation was there to build it anew.
+  </p>
+
+  <h3 id="sec1-7">1.7. A New Theory of Sets</h3>
+
+  <p>Russell was not among the mathematicians who opposed set theory. Quite the opposite, he viewed it as the only possible way to put mathematics on a firm footing without any ambiguity. The inconsistency he discovered in set theory showed to him what he thought of as the bane of any system attempting to be consistent. If a system is to function, he thought, it must be rid entirely of self-reference.</p>
+
+  <p>Self-reference in normal communication is almost impossible to avoid. Self reference is present any time the word “I”, the eleventh most common word in English, is spoken. This essay self-references, not only in this sentence, but in the previous sentence, when it uses the word “word”. Despite the obvious utility of self-reference, Russell sought to do away with it in his system of set theory, and it took him quite a bit to do so.</p>
+
+  <p>The means by which he accomplished, at least ostensibly, the banishment of self-reference was through an idea called <em>Ramified Type Theory</em>. In this theory, there exist terms of first type, which are not sets, terms of second type, which are sets that contain only terms of first type, terms of third type, which contain only elements of first and second type, and so on. In this scheme no set may contain itself, so concern for self-reference is, ideally, obviated.</p>
+
+  <p>Between 1910 and 1913 Russell and Alfred North Whitehead published, in three volumes, <em>Principia Mathematica</em>, which explicated their theory. It served as a vehicle for a particular philosophical view of Russell as well. As Russell writes in his 1907 essay <em>The Study of Mathematics</em>,</p>
+
+  <blockquote>
+    Mathematics takes us still further from what is human, into the region of absolute necessity, to which not only the world, but every possible world, must conform.
+  </blockquote>
+
+  <p>Russell’s view of math is that it is equivalent to logic. This position, called Logicism, formed part the motivation behind <em>Principia</em>. Another part of the motivation was the reevaluation of basic concepts. As Russell writes in <em>An Introduction to Mathematical Philosophy</em>,</p>
+
+  <blockquote>
+    We shall find that by analyzing our ordinary mathematical notions we acquire fresh insight, new powers, and the means of reaching whole new mathematical subjects by adopting fresh lines of advance after our backward journey.
+  </blockquote>
+
+  <p>To demonstrate that going forward once again was possible after his significant backward journey Russell gave, after a mere 379 pages, a proof of the arithmetic statement “1 + 1 = 2”, accompanied by a caption that reads “the above proposition is occasionally useful”. This was the first step onto the bridge between Russell’s logical foundation of math and arithmetic, the system capable of describing all of mathematics.</p>
+
+  <p>Motivated by this and other successes in reformulations of set theory, mathematicians became optimistic and emboldened, and sought, once and for all, to rid themselves of all doubt.</p>
+
+  <h3 id="sec1-8">1.8. The Culmination of Mathematical History</h3>
+
+  <p>In 1921 David Hilbert issued a challenge to the mathematicians of his day. His goal was two-fold: to formalize all of mathematics, and to prove the completeness and consistency of this formalization. A completion of this task would mark the end of all ambiguity in the subject and essentially complete the project started by Euclid thousands of years prior.</p>
+
+  <p>Not only this, but just as Russell used <em>Principia</em> to advocate for his logicist view of math, this project reflected Hilbert’s disposition toward math as a <em>formalist</em>. A formalist sees math as the declaration of axioms and the manipulation of these axioms to reach conclusions that can only be considered true within that axiomatic system. Any coincidence with the real world is just that, and reflects more our aesthetic choice to look at things that comport with our conceptions of the world.</p>
+
+  <p>To fully understand this project, it is important to understand what a formalization is. A formalization of an area of math is the reduction of the concepts of that area to a finite number of symbols representing the basic concepts necessary to discuss that area, using these symbols to construct what are called strings, which represent statements, and then providing rules of transformation so that we may derive new statements from old. Let’s go through an example.</p>
+
+  <p>If we consider arithmetic, the addition and multiplication of natural numbers, some basic concepts are addition, multiplication, and equality. In addition to these concepts, in order to talk about these things we need logical connectors to represent ideas like “and” and “not” and “there exists”, etc. So a formalization of arithmetic might consist in part of the following symbols:</p>
+
+  <table>
+    <tr><td>Addition</td>       <td>+</td></tr>
+    <tr><td>Multiplication</td> <td>·</td></tr>
+    <tr><td>Equality</td>       <td>=</td></tr>
+    <tr><td>And</td>            <td>∧</td></tr>
+    <tr><td>Not</td>            <td>¬</td></tr>
+    <tr><td>There Exists</td>   <td>∃</td></tr>
+    <tr><td>For All</td>        <td>∀</td></tr>
+  </table>
+
+  <p>With these symbols we can make strings that represent statements:</p>
+
+  <ul>
+    <li><em>x</em> divides <em>y</em> : ∃<em>a</em> (<em>x</em> · <em>a</em> = <em>y</em>)</li>
+    <li><em>x</em> is prime : <em>a</em> ∀ <em>b</em> ∀ (¬(<em>a</em> = 1) ∧ ¬(<em>b</em> = 1)) ¬ (<em>a</em> · <em>b</em> = <em>x</em>)</li>
+  </ul>
+
+  <p>In both these examples we use symbols that are not part of our formalization, like “(” and “)” and “1”, but we will deal with these later. For now we will content ourselves with a general demonstration of the idea behind a formalization. Also, note that <em>x</em> ∀ <em>p</em> denotes “for all <em>x</em>, <em>p</em> is true”. This quirk is due to linguistic differences in English and German<sup class="ref" id="r3">*</sup>.</p>
+
+  <aside id="n3">We can think of <em>x</em>∀<em>p</em> as “<em>x</em> generalizes for <em>p</em>”.</aside>
+
+  <p>Once the symbols have been set in place, it is important to provide rules of transformation. These rules mirror logical rules. For example, one such rule might be “From <em>A</em> and <em>A implies B</em> produce <em>B</em>”.</p>
+
+  <p>In principle all proofs can be reduced to some formalization. The concepts can be matched up with basic symbols and logical steps can be identified as certain rules of transformation. Of course, in practice, especially with complicated proofs, this is not practical, but practicality has never deterred mathematicians.</p>
+
+  <p>As important as the formalization was, its purpose is only to serve as a vehicle for the second step, which is a proof of the formalization’s completeness and consistency. In 1929 Polish mathematician Mojżesz Presburger proved the completeness and consistency for a simplified version of arithmetic that contained only addition on the integers. However, two years later, in 1931, 25 year-old Austrian logician Kurt Gödel showed a similar proof for when multiplication is adopted into this system to be impossible.</p>
+
+  <h3 id="sec1-9">1.9. The Result</h3>
+
+  <p>In the opening to On Formally Undecidable Propositions of Principia Mathematica and Related Systems Gödel writes</p>
+
+  <blockquote>
+    The development of mathematics towards greater exactness has, as is well-known, lead to large tracts of it being formalized such that all methods of proof may be carried out according to a few mechanical rules. The most comprehensive formal systems yet devised are the system of Principia Mathematica (PM) on the one hand, and the Zermelo-Fraenkel set theory on the other. These two systems are so extensive that all methods of proof used in mathematics today have been formalized in them, that is, reduced to a few axioms and rules of transformation. It may therefore be surmised that these deduction rules are sufficient to decide all mathematical questions that can in any way at all be expressed in those systems. It is shown below that this is not the case.
+  </blockquote>
+
+  <p>In the pages that follow Gödel demonstrates this fact, and in so doing divorces in the minds of mathematicians, for the first time, truth and provability, and in so doing illustrates the folly of strict formalism and logicism. In the next section we will go through how exactly this was done.</p>
+
+  <footer><a href="./part2.html">The Proof ></a></footer>
+
+  <script>
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById(`r${i}`).addEventListener('mouseover', () => {
+        document.getElementById(`n${i}`).style.color = 'var(--othertext)';
+      })
+
+      document.getElementById(`r${i}`).addEventListener('mouseleave', () => {
+        document.getElementById(`n${i}`).style.color = 'var(--background)';
+      })
+    }
+  </script>
+</body>
+</html>

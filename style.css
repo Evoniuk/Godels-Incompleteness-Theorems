@@ -1,0 +1,138 @@
+:root {
+  --background: rgb(6, 43, 65);
+  --othertext: rgb(186, 217, 240);
+  --maintext: rgb(240, 244, 248);
+  --formulaColor: gold;
+  --boundColor: rgb(233, 171, 233);
+}
+
+@font-face {
+  font-family: 'Computer Modern';
+  src: url('LatinModernMath-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Computer Modern';
+  src: url('cmunti-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: oblique;
+}
+
+* {
+  box-sizing: border-box;
+  grid-column: 2;
+}
+
+
+body {
+  font-family: 'Computer Modern';
+  display: grid;
+  row-gap: 0;
+  grid-template-columns: 1fr 32rem 14rem;
+  color: var(--maintext);
+  background-color: var(--background);
+}
+
+p {
+  text-align: justify;
+  margin-block-start: .5rem;
+  margin-block-end: .5rem;
+}
+
+h1 {text-align: center}
+
+.epigraph {text-align: center}
+
+.poem {
+  text-align: left;
+  font-style: italic;
+  display: inline-block;
+  padding-bottom: 1rem;
+}
+
+nav {
+  grid-column: 1;
+  position: fixed;
+  color: var(--maintext);
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+a {
+  text-decoration: none;
+  color: var(--othertext);
+}
+
+a:hover {text-decoration: underline}
+
+nav li {line-height: 1.7rem}
+
+.ref {
+  color: var(--othertext);
+  cursor: pointer;
+}
+
+aside {
+  grid-column: 3;
+  font-size: smaller;
+  color: var(--background);
+  margin: auto;
+  transition: ease .16s;
+  cursor: default;
+  user-select: none;
+  padding-left: 1rem;
+}
+
+blockquote {
+  padding: 0 5px;
+  font-size: smaller;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  line-height: normal;
+}
+
+table {
+  width: 70%;
+  margin: auto;
+}
+
+.center {text-align: center}
+
+.formRule {
+  padding: 1rem;
+}
+
+.formula {color: var(--formulaColor)}
+
+.bound {color: var(--boundColor)}
+
+footer {text-align: right}
+
+@media(max-width: 75rem) {
+  body {grid-template-columns: 1fr 32rem 1fr}
+
+  nav {
+    grid-column: 2;
+    position: static;
+  }
+
+  @media(max-width: 50rem) {
+
+    aside {
+      grid-column: 2;
+      color: var(--othertext) !important;
+      padding: 0;
+    }
+
+    .ref {cursor: text}
+
+    @media(max-width: 33rem) {
+      body {grid-template-columns: 0 1fr 0}
+    }
+  }
+}
