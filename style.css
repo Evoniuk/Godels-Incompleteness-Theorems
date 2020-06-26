@@ -119,6 +119,7 @@ footer {text-align: right}
   nav {
     grid-column: 2;
     position: static;
+    height: initial;
   }
 
   @media(max-width: 50rem) {
