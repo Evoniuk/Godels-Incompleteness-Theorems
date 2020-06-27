@@ -170,12 +170,16 @@
   <p id="peano"><strong>I - Axioms from Peano Arithmetic</strong></p>
 
   <ol>
-    <li>¬(<em>sx</em><sub>1</sub> = 0)<sup class="ref" id="r3">*</sup></li>
+    <li>¬(<em>sx</em><sub>1</sub> = 0)</li>
     <li><em>sx</em><sub>1</sub> = <em>sy</em><sub>1</sub> ⇒ <em>x</em><sub>1</sub> = <em>y</em><sub>1</sub></li>
-    <li>[<em>x</em><sub>2</sub>(0) ∧ <em>x</em><sub>1</sub> ∀ (<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) ⇒ <em>x</em><sub>2</sub>(<em>sx</em><sub>1</sub>))] ⇒ <em>x</em><sub>1</sub> ∀ <em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)</li>
+    <li>[<em>x</em><sub>2</sub>(0) ∧ <em>x</em><sub>1</sub> ∀ (<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) ⇒ <em>x</em><sub>2</sub>(<em>sx</em><sub>1</sub>))] ⇒ <em>x</em><sub>1</sub> ∀ <em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)<sup class="ref" id="r3">*</sup></li>
   </ol>
 
-  <aside id="n3">=, ∧, and ⇒ are for abbreviation only; the actual axioms do not contain them. <em>x</em><sub>1</sub> = <em>y</em><sub>1</sub> can be expressed in our system as <em>x</em><sub>2</sub>∀(¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)) ∨ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>)). <em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) denotes <em>x</em><sub>1</sub> ∈ <em>x</em><sub>2</sub>.</aside>
+  <aside id="n3"><em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) is read as '<em>x</em><sub>2</sub> contains <em>x</em><sub>1</sub>' and denotes <em>x</em><sub>1</sub> ∈ <em>x</em><sub>2</sub>.</aside>
+
+  <p>Note that =, ∧, and ⇒ are abbreviations only; the actual axioms do not contain them. <a href="#sec2-1-1">We have discussed before</a> the substitutions for ∧ and ⇒, but the way to write equality is a little more complicated.</p>
+
+  <p><em>x</em><sub>1</sub> = <em>y</em><sub>1</sub> can be expressed in our system as <em>x</em><sub>2</sub>∀(¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)) ∨ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>)). To see why, note that ¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)) ∨ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>) is the same as <em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) ⇒ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>), so we can rewrite <em>x</em><sub>2</sub>∀(¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>)) ∨ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>)) as <em>x</em><sub>2</sub>∀(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>) ⇒ <em>x</em><sub>2</sub>(<em>y</em><sub>1</sub>)). In plain English, this statement is saying that, for all <em>x</em><sub>2</sub> (which we recall represents a set), if <em>x</em><sub>1</sub> ∈ <em>x</em><sub>2</sub>, then <em>y</em><sub>1</sub> ∈ <em>x</em><sub>2</sub>. Or in other words, for every set, if <em>x</em><sub>1</sub> is in it, then <em>y</em><sub>1</sub> is in it. This is what equality means. If, <em>for every single set</em>, <em>x</em><sub>1</sub> being in it implies that <em>y</em><sub>1</sub> is in it, <em>x</em><sub>1</sub> and <em>y</em><sub>1</sub> must be the same thing.</p>
 
   <p id="propositional"><strong>II - Axioms from Propositional Logic</strong></p>
 
