@@ -41,7 +41,7 @@ p {
   margin-block-end: .5rem;
 }
 
-h1 {text-align: center}
+h1, .center {text-align: center}
 
 .epigraph {text-align: center}
 
@@ -101,7 +101,10 @@ table {
   margin: auto;
 }
 
-.center {text-align: center}
+hr {
+  width: 100%;
+  border: .5px solid var(--othertext);
+}
 
 .formRule {
   padding: 1rem;
