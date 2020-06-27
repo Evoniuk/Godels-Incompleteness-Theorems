@@ -71,7 +71,7 @@
 
   <h2 id="sec2">2. The Proof</h2>
 
-  <p>What Gödel showed was that any system of axioms capable of describing arithmetic, such as Peano’s axioms or Principia Mathematica, will always contain a well-formed statement that cannot be decided, making the system incomplete. This means that within these systems there exists a well-formed statement <em>p</em> such that neither <em>p</em> nor <em>not p</em> can be proved from the axioms. Not only this, but he gave an example of such a statement, and showed that this fact implies that these systems are incapable of proving their own consistency, and thus any proof of their consistency must rely on systems more complex than arithmetic, whose own consistency may be in doubt.</p>
+  <p>What Gödel showed was that any system of axioms capable of describing arithmetic, such as Peano’s axioms or Principia Mathematica, will always contain a well-formed statement that cannot be decided, making the system incomplete. This means that within these systems there exists a well-formed statement without free variables <em>p</em> such that neither <em>p</em> nor <em>not p</em> can be proved from the axioms. Not only this, but he gave an example of such a statement, and showed that this fact implies that these systems are incapable of proving their own consistency, and thus any proof of their consistency must rely on systems more complex than arithmetic, whose own consistency may be in doubt.</p>
 
   <h3 id="sec2-1">2.1. Necessary Considerations</h3>
 
@@ -110,7 +110,7 @@
 
   <p>Thus, the elimination of the existential quantifier allows us to test whether a statement can be assigned a truth value with greater ease, as we need only test whether every variable is paired with the universal quantifier. This will be useful in Gödel’s proof, as we will need to make many very specific statements about the exact structure of strings (which we recall are the formal representations of statements).</p>
 
-  <p>An interesting note; both these systems of logic are complete, a fact established in 1929 by none other than Gödel in his doctoral thesis.</p>
+  <p>An interesting note: both these systems of logic are complete, a fact established in 1929 by none other than Gödel in his doctoral thesis.</p>
 
   <h4 id="sec2-1-2">2.1.2. Primitive Recursion</h4>
 
@@ -300,7 +300,7 @@
 
   <p>It can easily be shown that addition, multiplication, exponentiation, less than, and equality are primitive recursive, so we will start from these and build up a series of 45 formulae, each employing previous ones, of which the final will be an arithmetic relation between two numbers <em>x</em> and <em>y</em> such that, if satisfied, Γ<sup>-1</sup>(<em>x</em>) will be a proof of Γ<sup>-1</sup>(<em>y</em>).</p>
 
-  <p>For each formula (in <span class="formula">gold</span>) we will indicate a bound (in <span class="bound">pink</span>) on the number of steps necessary to evaluate the formula in order to ensure it is primitive recursive. Where a bound is not indicated the formula is either given a recursive definition, as in [<a href="#f3">3</a>]<sup class="ref" id="r7">*</sup>, [<a href="#f4">5</a>], or an explicit function, as in [<a href="#f4">4</a>], [<a href="#f9">9</a>], [<a href="#f10">10</a>]. These formulae are primitive recursive by nature.</p>
+  <p>For each formula (in <span class="formula">gold</span>) we will indicate a bound (in <span class="bound">pink</span>) on the number of steps necessary to evaluate the formula in order to ensure it is primitive recursive. Where a bound is not indicated the formula is an explicit function, as in [<a href="#f4">4</a>], [<a href="#f9">9</a>], [<a href="#f10">10</a>].</p>
 
   <aside id="n7">We will use [<em>n</em>] to denote the <em>n<sup>th</sup></em> formula on this list.</aside>
 
@@ -321,10 +321,11 @@
   <div class="formRule" id="f2">
     2. <span class="formula">Prim(<em>x</em>)</span> | <em>x</em> is prime.
     <ul>
+      <li><em>x</em> ≠ 1</li>
       <li>
         ¬∃<em>z</em> <span class="bound">< <em>x</em></span> such that
         <ul>
-          <li>z ≠ 1</li>
+          <li><em>z</em> ≠ 1</li>
           <li><em>x</em> / <em>z</em> [<a href="#f1">1</a>]</li>
         </ul>
       </li>
@@ -338,7 +339,7 @@
       <li>
         (<em>n</em> + 1)Pr <em>x</em> = smallest <em>y</em> such that
         <ul>
-          <li><em>n</em>Pr <em>x</em> < <em>y</em> < <em>x</em></li>
+          <li><em>n</em>Pr <em>x</em> < <em>y</em> <span class="bound">< <em>x</em></span></li>
           <li>Prim(<em>y</em>) [<a href="#f2">2</a>]</li>
           <li><em>x</em> / <em>y</em> [<a href="#f1">1</a>]</li>
         </ul>
@@ -364,7 +365,7 @@
         Pr(<em>n</em> + 1) = smallest <em>y</em> such that
         <ul>
           <li>Prim(<em>y</em>) [<a href="#f2">2</a>]</li>
-          <li>Pr(<em>n</em>) < Pr(<em>n</em> + 1) ≤ Pr(<em>n</em>)! [<a href="#f4">4</a>]</li>
+          <li>Pr(<em>n</em>) < <em>y</em> <span class="bound">≤ Pr(<em>n</em>)! + 1</span> [<a href="#f4">4</a>]</li>
         </ul>
       </li>
     </ul>
