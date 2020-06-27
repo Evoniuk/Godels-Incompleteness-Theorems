@@ -239,12 +239,12 @@
     <tr>
       <td>Γ(∀) = 9</td>
       <td>Γ(() = 11</td>
-      <td></td>
       <td>Γ()) = 13</td>
+      <td></td>
     </tr>
   </table>
 
-  <p>Further, Γ will assign to each variable a number. Variables of first type, <em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>, <em>z</em><sub>1</sub>, and so on, it will assign primes greater than 13. So</p>
+  <p>Further, Γ will assign to each variable a number. To variables of first type, <em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>, <em>z</em><sub>1</sub>, and so on, it will assign primes greater than 13. So</p>
 
   <table>
     <tr>
@@ -298,7 +298,7 @@
 
   <p>We can now use the Γ function to allow P to talk about itself. For example, if we consider our statement <em>e</em> = ¬<em>x</em><sub>2</sub> ∀ ¬(<em>x</em><sub>1</sub> ∀ ¬(<em>x</em><sub>2</sub>(<em>x</em><sub>1</sub>))) and wish to say of it that its first symbol is “¬”, we could say that 2<sup>5</sup> divides Γ(<em>e</em>), but 2<sup>6</sup> does not. This gives an arithmetic interpretation of a statement about a statement of P.</p>
 
-  <p>To show that something about P may be said within P it is sufficient to show that the arithmetic relation corresponding to that something is primitive recursive. In our example, this would mean that in order to be sure that P can say that “¬” is the first symbol in <em>e</em> we would show that “2<sup>5</sup> divides <em>x</em>, while 2<sup>6</sup> does not” is a primitive recursive relation. Fortunately it is, and this is easily shown, but more complicated and esoteric relations are not so readily shown. Our goal will be to show that P is capable of saying “<em>x</em> is a proof of <em>y</em>”, and to do so we will show that the arithmetic relation corresponding to this statement is primitive recursive.</p>
+  <p>To show that something about P may be said within P it is sufficient to show that the arithmetic relation corresponding to that something is primitive recursive. In our example, this would mean that in order to be sure that P can say that “¬” is the first symbol in a statement we would show that “2<sup>5</sup> divides <em>x</em>, while 2<sup>6</sup> does not” is a primitive recursive relation. Fortunately it is, and this is easily shown, but more complicated and esoteric relations are not so readily shown. Our goal will be to show that P is capable of saying “<em>x</em> is a proof of <em>y</em>”, and to do so we will show that the arithmetic relation corresponding to this statement is primitive recursive.</p>
 
   <h4 id="sec2-2-3">2.2.3 A Primitive Recursive Series</h4>
 
@@ -1002,7 +1002,7 @@
   <footer><a href="./part3.html">Closing Thoughts ></a></footer>
 
   <script>
-    for (let i = 1; i <= 19; i++) {
+    for (let i = 1; i <= 20; i++) {
       document.getElementById(`r${i}`).addEventListener('mouseover', () => {
         document.getElementById(`n${i}`).style.color = 'var(--othertext)';
       })
