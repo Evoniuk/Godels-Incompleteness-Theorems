@@ -30,7 +30,8 @@ body {
   font-family: 'Computer Modern';
   display: grid;
   row-gap: 0;
-  grid-template-columns: 1fr 32rem 14rem;
+  /* grid-template-columns: 1fr 32rem 14rem; */
+  grid-template-columns: 1fr 32rem .5fr;
   color: var(--maintext);
   background-color: var(--background);
 }
@@ -78,11 +79,11 @@ aside {
   grid-column: 3;
   font-size: smaller;
   color: var(--background);
-  margin: auto;
   transition: ease .16s;
   cursor: default;
   user-select: none;
-  padding-left: 1rem;
+  max-width: 12rem;
+  margin: auto;
 }
 
 blockquote {
