@@ -67,7 +67,7 @@ a {
 
 a:hover {text-decoration: underline}
 
-nav li {line-height: 1.7rem}
+nav li {line-height: 1.6rem}
 
 .ref {
   color: var(--othertext);
@@ -99,11 +99,6 @@ ul {
 table {
   width: 70%;
   margin: auto;
-}
-
-hr {
-  width: 100%;
-  border: .5px solid var(--othertext);
 }
 
 .formRule {
