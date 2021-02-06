@@ -68,6 +68,15 @@ a {
   color: var(--othertext);
 }
 
+.section {
+  color: var(--maintext);
+  font-style: italic;
+}
+
+.section:hover {
+  text-decoration: none;
+}
+
 a:hover {text-decoration: underline}
 
 nav li {line-height: 1.6rem}

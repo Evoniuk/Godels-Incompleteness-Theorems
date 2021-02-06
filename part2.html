@@ -69,15 +69,15 @@
 
   <header><a href="./index.html">< A History and a Result</a></header>
 
-  <h2 id="sec2"><small>2</small> The Proof</h2>
+  <h2 id="sec2"><small>2</small> <a href="#sec2" class="section">The Proof</a></h2>
 
   <p>What Gödel showed was that any system of axioms capable of describing arithmetic, such as Peano’s axioms or Principia Mathematica, will always contain a well-formed statement that cannot be decided, making the system incomplete. This means that within these systems there exists a well-formed statement without free variables <em>p</em> such that neither <em>p</em> nor <em>not p</em> can be proved from the axioms. Not only this, but he gave an example of such a statement, and showed that this fact implies that these systems are incapable of proving their own consistency, and thus any proof of their consistency must rely on systems more complex than arithmetic, whose own consistency may be in doubt.</p>
 
-  <h3 id="sec2-1"><small>2.1</small> Necessary Considerations</h3>
+  <h3 id="sec2-1"><small>2.1</small> <a href="#sec2-1" class="section">Necessary Considerations</a></h3>
 
   <p>Gödel’s proof was written to a small group of specialists in a niche field of mathematics using completely novel methods of argument. It contains some difficult language. Here, before going into the details of the proof, we will go through some requisite definitions and concepts.</p>
 
-  <h4 id="sec2-1-1"><small>2.1.1</small> Logic</h4>
+  <h4 id="sec2-1-1"><small>2.1.1</small> <a href="#sec2-1-1" class="section">Logic</a></h4>
 
   <p>There are two types of logic necessary for our discussion, propositional logic and predicate logic. These are also known as zero-order and first-order logic, respectively. We will go through a formalization of them to familiarize ourselves with the symbols.</p>
 
@@ -110,7 +110,7 @@
 
   <p>Thus, the elimination of the existential quantifier allows us to test whether a statement can be assigned a truth value with greater ease, as we need only test whether every variable is paired with the universal quantifier. This will be useful in Gödel’s proof, as we will need to make many very specific statements about the exact structure of strings (which we recall are the formal representations of statements).</p>
 
-  <h4 id="sec2-1-2"><small>2.1.2</small> Primitive Recursion</h4>
+  <h4 id="sec2-1-2"><small>2.1.2</small> <a href="#sec2-1-2" class="section">Primitive Recursion</a></h4>
 
   <p>Primitive recursive is a fancy term for a fairly basic idea. If a formula is primitive recursive all that is meant is that we can assign a finite bound to how long it will take to evaluate it. By formula we mean either what is commonly called a function, like <em>x</em><sup>2</sup> or <em>x</em>!, something that takes an input and transforms it in some way, or a statement, in which case an evaluation would yield <em>true</em> or <em>false</em> (upon binding all variables, that is).</p>
 
@@ -134,11 +134,11 @@
 
   <p>The importance of primitive recursive formulae is that if an arithmetic formula is primitive recursive it can be expressed within an axiomatic system for arithmetic of equivalent or greater power than Peano arithmetic, such as Principia Mathematica or Zermelo-Fraenkel. This means that if a formula can be shown to be primitive recursive we can be sure that there exists a formalization of that formula (that is, a string of symbols representing the formula) within our system. This is absolutely crucial to Gödel’s work, as a large portion of his proof is dedicated to showing that certain arithmetic relations can be expressed in the system of Principia Mathematica.</p>
 
-  <h3 id="sec2-2"><small>2.2</small> The Proof</h3>
+  <h3 id="sec2-2"><small>2.2</small> <a href="#sec2-2" class="section">The Proof</a></h3>
 
   <p>We will now prove the Incompleteness of arithmetic.</p>
 
-  <h4 id="sec2-2-1"><small>2.2.1</small> Defining the System P</h4>
+  <h4 id="sec2-2-1"><small>2.2.1</small> <a href="#sec2-2-1" class="section">Defining the System P</a></h4>
 
   <p>We will start by going through the details of the formal system in which we are working, which we will call P. P is Principia Mathematica augmented by the Peano axioms. Including the Peano axioms is actually redundant, but they are useful in simplifying things. The basic symbols we will use are “¬” (not), “∨” (or), “∀” (for all), “0”, “<em>s</em>” (successor), “(”, and “)”.</p>
 
@@ -219,7 +219,7 @@
 
   <p>We now define the relation <em>immediate consequence of</em>. A formula <em>c</em> is an immediate consequence of <em>a</em> if <em>a</em> is the formula <em>v</em> ∀ <em>c</em>, where <em>v</em> is any given variable. It is the immediate consequence of <em>a</em> and <em>b</em> if <em>a</em> is the formula <em>b</em> ⇒ <em>c</em>. It is a fact of great import that all statements within any proof are produced from previous statements using only these logical steps. Thus, the set of provable formulae is the set that contains the axioms and is closed with respect to <em>immediate consequence of</em>. This fact will prove of great use, as we will later need to describe relations that define provability.</p>
 
-  <h4 id="sec2-2-2"><small>2.2.2</small> Gödel Numbering</h4>
+  <h4 id="sec2-2-2"><small>2.2.2</small> <a href="#sec2-2-2" class="section">Gödel Numbering</a></h4>
 
   <p>This next step is the key to the proof. What we will do is assign each formula and proof (sequence of formulae) a number, which we will call the Gödel number<sup class="ref" id="r5">*</sup>. We will do this in such a way that if the proof <em>a</em> is a proof of the formula <em>b</em>, then the Gödel number for <em>a</em> will have a certain arithmetic relation with the Gödel number for <em>b</em>. And because this relation is arithmetic, it can be described within our system P. This will enable P to, in a sense, talk about itself. As things turn out, self-reference can never be banished from math.</p>
 
@@ -298,7 +298,7 @@
 
   <p>To show that something about P may be said within P it is sufficient to show that the arithmetic relation corresponding to that something is primitive recursive. In our example, this would mean that in order to be sure that P can say that “¬” is the first symbol in a statement we would show that “2<sup>5</sup> divides <em>x</em>, while 2<sup>6</sup> does not” is a primitive recursive relation. Fortunately it is, and this is easily shown, but more complicated and esoteric relations are not so readily shown. Our goal will be to show that P is capable of saying “<em>x</em> is a proof of <em>y</em>”, and to do so we will show that the arithmetic relation corresponding to this statement is primitive recursive.</p>
 
-  <h4 id="sec2-2-3"><small>2.2.3</small> A Primitive Recursive Series</h4>
+  <h4 id="sec2-2-3"><small>2.2.3</small> <a href="#sec2-2-3" class="section">A Primitive Recursive Series</a></h4>
 
   <p>It can easily be shown that addition, multiplication, exponentiation, less than, and equality are primitive recursive, so we will start from these and build up a series of 45 formulae, each employing previous ones, of which the final will be an arithmetic relation between two numbers <em>x</em> and <em>y</em> such that, if satisfied, Γ<sup>-1</sup>(<em>x</em>) will be a proof of Γ<sup>-1</sup>(<em>y</em>).</p>
 
@@ -935,7 +935,7 @@
 
   <p>In <em>x</em>Dem <em>y</em> we have a primitive recursive arithmetic formula between <em>x</em> and <em>y</em> that, if satisfied, means that Γ<sup>-1</sup>(<em>x</em>) is a proof of Γ<sup>-1</sup>(<em>y</em>). What this means is that there is a statement within our system P that can say whether or not two other strings constitute a valid proof within P. In the next section we will use this to create an undecidable statement.</p>
 
-  <h4 id="sec2-2-4"><small>2.2.4</small> Constructing the Undecidable</h4>
+  <h4 id="sec2-2-4"><small>2.2.4</small> <a href="#sec2-2-4" class="section">Constructing the Undecidable</a></h4>
 
   <p>We will now construct a statement that is undecidable within P.</p>
 
@@ -983,7 +983,7 @@
 
   <p>We can thus conclude that if P is consistent then neither <em>r</em> nor ¬<em>r</em> is provable, meaning P is incomplete. This concludes the proof of Gödel’s first incompleteness theorem.</p>
 
-  <h4 id="sec2-2-5"><small>2.2.5</small> A Problem with Consistency</h4>
+  <h4 id="sec2-2-5"><small>2.2.5</small> <a href="#sec2-2-5" class="section">A Problem with Consistency</a></h4>
 
   <p>We have shown that if P is consistent then it is incomplete. More specifically, we have shown that consistency implies <em>r</em>, as <em>r</em> is the statement that <em>r</em> cannot be proven, which is indeed the case if P is consistent. We can represent this relation succinctly as</p>
 
